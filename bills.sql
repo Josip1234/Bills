@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2024 at 08:20 PM
+-- Generation Time: Mar 26, 2024 at 08:20 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -20,6 +20,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `bills`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bill_footer`
+--
+
+CREATE TABLE `bill_footer` (
+  `id` int(11) NOT NULL,
+  `bill_number` varchar(255) NOT NULL,
+  `date` datetime NOT NULL,
+  `ZKI` varchar(255) NOT NULL,
+  `JIR` varchar(255) NOT NULL,
+  `ref_number` varchar(50) NOT NULL,
+  `other` text NOT NULL,
+  `barcode_image_url` varchar(255) NOT NULL,
+  `shop_ssn` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
+
+--
+-- Dumping data for table `bill_footer`
+--
+
+INSERT INTO `bill_footer` (`id`, `bill_number`, `date`, `ZKI`, `JIR`, `ref_number`, `other`, `barcode_image_url`, `shop_ssn`) VALUES
+(1, '26691/3205/60', '2022-07-14 14:57:07', '61190da357423eb32fe0a6b39ae19111', '8a0bd979-8948-4668-8030-3685a45aa06f', '83/2320560208', 'Kupujte i online na www.konzum.hr\r\n', '', '62226620908');
 
 -- --------------------------------------------------------
 
@@ -88,6 +113,16 @@ INSERT INTO `type_off_bill` (`id`, `type_id`, `type`) VALUES
 --
 
 --
+-- Indexes for table `bill_footer`
+--
+ALTER TABLE `bill_footer`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `bill_number` (`bill_number`),
+  ADD UNIQUE KEY `ZKI` (`ZKI`),
+  ADD UNIQUE KEY `JIR` (`JIR`),
+  ADD KEY `shop_ssn` (`shop_ssn`);
+
+--
 -- Indexes for table `shop`
 --
 ALTER TABLE `shop`
@@ -99,6 +134,7 @@ ALTER TABLE `shop`
 --
 ALTER TABLE `shop_detail`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `ssn` (`ssn`),
   ADD KEY `shopind` (`shop_name`);
 
 --
@@ -110,6 +146,12 @@ ALTER TABLE `type_off_bill`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `bill_footer`
+--
+ALTER TABLE `bill_footer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `shop`
@@ -132,6 +174,12 @@ ALTER TABLE `type_off_bill`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `bill_footer`
+--
+ALTER TABLE `bill_footer`
+  ADD CONSTRAINT `shop_fk` FOREIGN KEY (`shop_ssn`) REFERENCES `shop_detail` (`ssn`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `shop_detail`
