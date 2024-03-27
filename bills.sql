@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2024 at 08:20 PM
+-- Generation Time: Mar 27, 2024 at 07:46 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -24,6 +24,28 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `articles`
+--
+
+CREATE TABLE `articles` (
+  `id` int(11) NOT NULL,
+  `serial_num` varchar(255) NOT NULL,
+  `article_name` varchar(255) NOT NULL,
+  `article_price` double NOT NULL,
+  `kuna_price` double DEFAULT NULL,
+  `current_rate_in_euro` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
+
+--
+-- Dumping data for table `articles`
+--
+
+INSERT INTO `articles` (`id`, `serial_num`, `article_name`, `article_price`, `kuna_price`, `current_rate_in_euro`) VALUES
+(1, '8n54KcUA', 'VODA IZV JANA MEN LI', 1.46, 10.99, 7.5345);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `bill_footer`
 --
 
@@ -34,8 +56,8 @@ CREATE TABLE `bill_footer` (
   `ZKI` varchar(255) NOT NULL,
   `JIR` varchar(255) NOT NULL,
   `ref_number` varchar(50) NOT NULL,
-  `other` text NOT NULL,
-  `barcode_image_url` varchar(255) NOT NULL,
+  `other` text DEFAULT NULL,
+  `barcode_image_url` varchar(255) DEFAULT NULL,
   `shop_ssn` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
 
@@ -77,9 +99,9 @@ CREATE TABLE `shop_detail` (
   `ssn` varchar(11) NOT NULL,
   `shop number` varchar(255) NOT NULL,
   `telephone` varchar(255) NOT NULL,
-  `fax` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `hq_address` varchar(255) NOT NULL
+  `fax` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `hq_address` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
 
 --
@@ -111,6 +133,13 @@ INSERT INTO `type_off_bill` (`id`, `type_id`, `type`) VALUES
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `articles`
+--
+ALTER TABLE `articles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `serial_num` (`serial_num`);
 
 --
 -- Indexes for table `bill_footer`
@@ -146,6 +175,12 @@ ALTER TABLE `type_off_bill`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `articles`
+--
+ALTER TABLE `articles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `bill_footer`
