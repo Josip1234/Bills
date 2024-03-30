@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 29, 2024 at 08:35 PM
+-- Generation Time: Mar 30, 2024 at 02:30 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -79,7 +79,7 @@ CREATE TABLE `bill_item` (
   `bill_number` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `article_name` varchar(255) NOT NULL,
-  `shop_name` varchar(255) NOT NULL,
+  `shop_ssn` varchar(255) NOT NULL,
   `amount` int(11) DEFAULT NULL,
   `amount_in_kg` double DEFAULT NULL,
   `amount_in_grams` int(11) DEFAULT NULL,
@@ -91,8 +91,8 @@ CREATE TABLE `bill_item` (
 -- Dumping data for table `bill_item`
 --
 
-INSERT INTO `bill_item` (`id`, `bill_number`, `type`, `article_name`, `shop_name`, `amount`, `amount_in_kg`, `amount_in_grams`, `amount_in_liters`, `other_details`) VALUES
-(1, '26691/3205/60', 'Shopping bill', 'VODA IZV JANA MEN LI', 'KONZUM plus d.o.o.', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `bill_item` (`id`, `bill_number`, `type`, `article_name`, `shop_ssn`, `amount`, `amount_in_kg`, `amount_in_grams`, `amount_in_liters`, `other_details`) VALUES
+(2, '26691/3205/60', 'Shopping bill', 'VODA IZV JANA MEN LI', '62226620908', 1, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -102,17 +102,17 @@ INSERT INTO `bill_item` (`id`, `bill_number`, `type`, `article_name`, `shop_name
 
 CREATE TABLE `other_shop_or_bill_details` (
   `id` int(11) NOT NULL,
-  `shop_name` varchar(255) DEFAULT NULL,
   `bill_number` varchar(255) DEFAULT NULL,
-  `details` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`details`))
+  `details` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`details`)),
+  `shop_ssn` varchar(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
 
 --
 -- Dumping data for table `other_shop_or_bill_details`
 --
 
-INSERT INTO `other_shop_or_bill_details` (`id`, `shop_name`, `bill_number`, `details`) VALUES
-(1, 'KONZUM plus d.o.o.', '26691/3205/60', '{\"Details\":{\n      \"Blagajna\":60,\n      \"Blagajnik\":\"KE\"\n}\n}');
+INSERT INTO `other_shop_or_bill_details` (`id`, `bill_number`, `details`, `shop_ssn`) VALUES
+(2, '26691/3205/60', '{\"Details\":{\r\n      \"Blagajna\":60,\r\n      \"Blagajnik\":\"KE\"\r\n}\r\n}', '62226620908');
 
 -- --------------------------------------------------------
 
@@ -156,6 +156,57 @@ CREATE TABLE `shop_detail` (
 
 INSERT INTO `shop_detail` (`id`, `shop_name`, `address`, `ssn`, `shop number`, `telephone`, `fax`, `email`, `hq_address`) VALUES
 (1, 'KONZUM plus d.o.o.', 'ZAGREB, NOVA VES 17', '62226620908', '3205', '0800 400 000', '', '', 'Zagreb, Ulica Marijana Čavića 1A');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shop_logo`
+--
+
+CREATE TABLE `shop_logo` (
+  `id` int(11) NOT NULL,
+  `shop_name` varchar(255) NOT NULL,
+  `logo1_url` varchar(255) NOT NULL,
+  `logo2_url` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
+
+--
+-- Dumping data for table `shop_logo`
+--
+
+INSERT INTO `shop_logo` (`id`, `shop_name`, `logo1_url`, `logo2_url`) VALUES
+(1, 'KONZUM plus d.o.o.', 'C:\\Users\\Korisnik\\Desktop\\xmp\\htdocs\\Bills\\konzum_logo.png', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaction`
+--
+
+CREATE TABLE `transaction` (
+  `id` int(11) NOT NULL,
+  `bill_number` varchar(255) NOT NULL,
+  `shop_ssn` varchar(255) NOT NULL,
+  `serial_num` varchar(255) NOT NULL,
+  `sum_eur` double NOT NULL,
+  `sum_hrk` double DEFAULT NULL,
+  `tax_mark` char(6) DEFAULT NULL,
+  `tax_base` double DEFAULT NULL,
+  `tax_amount` double DEFAULT NULL,
+  `in_total` double NOT NULL,
+  `refunds` double DEFAULT NULL,
+  `refund_amount` int(11) DEFAULT NULL,
+  `refunnd_value_one` double DEFAULT NULL,
+  `refund_value_two` double DEFAULT NULL,
+  `other_details` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`other_details`))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
+
+--
+-- Dumping data for table `transaction`
+--
+
+INSERT INTO `transaction` (`id`, `bill_number`, `shop_ssn`, `serial_num`, `sum_eur`, `sum_hrk`, `tax_mark`, `tax_base`, `tax_amount`, `in_total`, `refunds`, `refund_amount`, `refunnd_value_one`, `refund_value_two`, `other_details`) VALUES
+(2, '26691/3205/60', '62226620908', '8n54KcUA', 1.46, 10.99, 'A', 8.39, 2.1, 10.49, 0.5, 1, 0.5, 0.07, '{\"Details\":{\r\n\"Plaćeno\":\"Kartica\",\r\n\"Iznos\":\"1,46 EUR 10,99\"\r\n}\r\n}');
 
 -- --------------------------------------------------------
 
@@ -206,15 +257,15 @@ ALTER TABLE `bill_item`
   ADD KEY `bill_number` (`bill_number`),
   ADD KEY `type` (`type`),
   ADD KEY `serial_num` (`article_name`),
-  ADD KEY `shop_name` (`shop_name`);
+  ADD KEY `shop_name` (`shop_ssn`);
 
 --
 -- Indexes for table `other_shop_or_bill_details`
 --
 ALTER TABLE `other_shop_or_bill_details`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `shop_name` (`shop_name`),
-  ADD KEY `bill_number` (`bill_number`);
+  ADD KEY `bill_number` (`bill_number`),
+  ADD KEY `shop_ssn` (`shop_ssn`);
 
 --
 -- Indexes for table `shop`
@@ -230,6 +281,24 @@ ALTER TABLE `shop_detail`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `ssn` (`ssn`),
   ADD KEY `shopind` (`shop_name`);
+
+--
+-- Indexes for table `shop_logo`
+--
+ALTER TABLE `shop_logo`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `shop_name` (`shop_name`);
+
+--
+-- Indexes for table `transaction`
+--
+ALTER TABLE `transaction`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `bill_number` (`bill_number`),
+  ADD KEY `shop_name` (`shop_ssn`),
+  ADD KEY `serial_num` (`serial_num`),
+  ADD KEY `shop_name_2` (`shop_ssn`),
+  ADD KEY `shop_ssn` (`shop_ssn`);
 
 --
 -- Indexes for table `type_off_bill`
@@ -258,13 +327,13 @@ ALTER TABLE `bill_footer`
 -- AUTO_INCREMENT for table `bill_item`
 --
 ALTER TABLE `bill_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `other_shop_or_bill_details`
 --
 ALTER TABLE `other_shop_or_bill_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `shop`
@@ -277,6 +346,18 @@ ALTER TABLE `shop`
 --
 ALTER TABLE `shop_detail`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `shop_logo`
+--
+ALTER TABLE `shop_logo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `transaction`
+--
+ALTER TABLE `transaction`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `type_off_bill`
@@ -301,20 +382,34 @@ ALTER TABLE `bill_item`
   ADD CONSTRAINT `bill_item_ibfk_1` FOREIGN KEY (`type`) REFERENCES `type_off_bill` (`type`),
   ADD CONSTRAINT `bill_no_fk` FOREIGN KEY (`bill_number`) REFERENCES `bill_footer` (`bill_number`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `serial_art_fk` FOREIGN KEY (`article_name`) REFERENCES `articles` (`article_name`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `shop_name_fk` FOREIGN KEY (`shop_name`) REFERENCES `shop` (`shop_name`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `shop_ssn_fk` FOREIGN KEY (`shop_ssn`) REFERENCES `shop_detail` (`ssn`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `other_shop_or_bill_details`
 --
 ALTER TABLE `other_shop_or_bill_details`
   ADD CONSTRAINT `bill_number` FOREIGN KEY (`bill_number`) REFERENCES `bill_footer` (`bill_number`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `other_shop_or_bill_details_ibfk_1` FOREIGN KEY (`shop_name`) REFERENCES `shop` (`shop_name`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `shp_ssn_fk` FOREIGN KEY (`shop_ssn`) REFERENCES `shop_detail` (`ssn`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `shop_detail`
 --
 ALTER TABLE `shop_detail`
   ADD CONSTRAINT `shop_name` FOREIGN KEY (`shop_name`) REFERENCES `shop` (`shop_name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `shop_logo`
+--
+ALTER TABLE `shop_logo`
+  ADD CONSTRAINT `shop_name_fk` FOREIGN KEY (`shop_name`) REFERENCES `shop` (`shop_name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `transaction`
+--
+ALTER TABLE `transaction`
+  ADD CONSTRAINT `bill_no` FOREIGN KEY (`bill_number`) REFERENCES `bill_footer` (`bill_number`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `serial_num` FOREIGN KEY (`serial_num`) REFERENCES `articles` (`serial_num`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `sh_ssn_fk` FOREIGN KEY (`shop_ssn`) REFERENCES `shop_detail` (`ssn`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
