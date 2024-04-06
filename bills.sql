@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2024 at 02:30 PM
+-- Generation Time: Apr 06, 2024 at 02:30 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -41,7 +41,8 @@ CREATE TABLE `articles` (
 --
 
 INSERT INTO `articles` (`id`, `serial_num`, `article_name`, `article_price`, `kuna_price`, `current_rate_in_euro`) VALUES
-(1, '8n54KcUA', 'VODA IZV JANA MEN LI', 1.46, 10.99, 7.5345);
+(1, '8n54KcUA', 'VODA IZV JANA MEN LI', 1.46, 10.99, 7.5345),
+(3, '20002', 'MAJICA', 12.9, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -66,7 +67,8 @@ CREATE TABLE `bill_footer` (
 --
 
 INSERT INTO `bill_footer` (`id`, `bill_number`, `date`, `ZKI`, `JIR`, `ref_number`, `other`, `barcode_image_url`, `shop_ssn`) VALUES
-(1, '26691/3205/60', '2022-07-14 14:57:07', '61190da357423eb32fe0a6b39ae19111', '8a0bd979-8948-4668-8030-3685a45aa06f', '83/2320560208', 'Kupujte i online na www.konzum.hr\r\n', '', '62226620908');
+(1, '26691/3205/60', '2022-07-14 14:57:07', '61190da357423eb32fe0a6b39ae19111', '8a0bd979-8948-4668-8030-3685a45aa06f', '83/2320560208', 'Kupujte i online na www.konzum.hr\r\n', '', '62226620908'),
+(2, '3033/PP4/1', '2024-04-06 10:24:26', '6867931bd51a0836a61a495a37ec5314', 'fe2cade0-e86a-4188-958a-ec4580d98a09', '0.15522042769493574', 'ozn. operatera: OPERATER 48\nNaćin plaćanja: gotovina\nHvala na kupnji! Zamjena robe moguća je u roku od 10 dana od danje kupnje uz predočenje računa. Odjeća i galenterija mora sadržavati pripadajuće deklaracije, a obuća originalnu ambalažu. Obuća, odjeća i galenterija ne smije biti nošena u slučaju zamjene. U slučaju zamjene robe povrat novca nije moguć', 'C:\\Users\\Korisnik\\Desktop\\xmp\\htdocs\\Bills\\WIN_20230224_19_01_22_Pro.jpg', '39314924844');
 
 -- --------------------------------------------------------
 
@@ -92,7 +94,8 @@ CREATE TABLE `bill_item` (
 --
 
 INSERT INTO `bill_item` (`id`, `bill_number`, `type`, `article_name`, `shop_ssn`, `amount`, `amount_in_kg`, `amount_in_grams`, `amount_in_liters`, `other_details`) VALUES
-(2, '26691/3205/60', 'Shopping bill', 'VODA IZV JANA MEN LI', '62226620908', 1, NULL, NULL, NULL, NULL);
+(2, '26691/3205/60', 'Shopping bill', 'VODA IZV JANA MEN LI', '62226620908', 1, NULL, NULL, NULL, NULL),
+(3, '3033/PP4/1', 'Shopping bill', 'MAJICA', '39314924844', 1, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -112,7 +115,8 @@ CREATE TABLE `other_shop_or_bill_details` (
 --
 
 INSERT INTO `other_shop_or_bill_details` (`id`, `bill_number`, `details`, `shop_ssn`) VALUES
-(2, '26691/3205/60', '{\"Details\":{\r\n      \"Blagajna\":60,\r\n      \"Blagajnik\":\"KE\"\r\n}\r\n}', '62226620908');
+(2, '26691/3205/60', '{\"Details\":{\r\n      \"Blagajna\":60,\r\n      \"Blagajnik\":\"KE\"\r\n}\r\n}', '62226620908'),
+(3, '3033/PP4/1', '{\r\n   \"Details\":{\r\n      \"Oznaka operatera\":\"OPERATER 48\",\r\n      \"Način plaćanja\":\"Gotovina\"\r\n   }\r\n}', '39314924844');
 
 -- --------------------------------------------------------
 
@@ -130,7 +134,8 @@ CREATE TABLE `shop` (
 --
 
 INSERT INTO `shop` (`id`, `shop_name`) VALUES
-(1, 'KONZUM plus d.o.o.');
+(1, 'KONZUM plus d.o.o.'),
+(2, 'T.O. Koala Vl. M.Jelic');
 
 -- --------------------------------------------------------
 
@@ -147,15 +152,17 @@ CREATE TABLE `shop_detail` (
   `telephone` varchar(255) NOT NULL,
   `fax` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `hq_address` varchar(255) DEFAULT NULL
+  `hq_address` varchar(255) DEFAULT NULL,
+  `web_page` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_croatian_ci;
 
 --
 -- Dumping data for table `shop_detail`
 --
 
-INSERT INTO `shop_detail` (`id`, `shop_name`, `address`, `ssn`, `shop number`, `telephone`, `fax`, `email`, `hq_address`) VALUES
-(1, 'KONZUM plus d.o.o.', 'ZAGREB, NOVA VES 17', '62226620908', '3205', '0800 400 000', '', '', 'Zagreb, Ulica Marijana Čavića 1A');
+INSERT INTO `shop_detail` (`id`, `shop_name`, `address`, `ssn`, `shop number`, `telephone`, `fax`, `email`, `hq_address`, `web_page`) VALUES
+(1, 'KONZUM plus d.o.o.', 'ZAGREB, NOVA VES 17', '62226620908', '3205', '0800 400 000', '', '', 'Zagreb, Ulica Marijana Čavića 1A', 'https://www.konzum.hr/'),
+(2, 'T.O. Koala Vl. M.Jelic', 'Matice Hrvatske 4, Požega', '39314924844', 'Izdv. Pogon 4', '034 / 275 – 990', NULL, NULL, 'Sl.Graničara 29, Nova Gradiška', 'https://koala-shop.hr/');
 
 -- --------------------------------------------------------
 
@@ -175,7 +182,8 @@ CREATE TABLE `shop_logo` (
 --
 
 INSERT INTO `shop_logo` (`id`, `shop_name`, `logo1_url`, `logo2_url`) VALUES
-(1, 'KONZUM plus d.o.o.', 'C:\\Users\\Korisnik\\Desktop\\xmp\\htdocs\\Bills\\konzum_logo.png', '');
+(1, 'KONZUM plus d.o.o.', 'C:\\Users\\Korisnik\\Desktop\\xmp\\htdocs\\Bills\\konzum_logo.png', ''),
+(2, 'T.O. Koala Vl. M.Jelic', 'C:\\Users\\Korisnik\\Desktop\\xmp\\htdocs\\Bills\\koala_logo.png', '');
 
 -- --------------------------------------------------------
 
@@ -206,7 +214,8 @@ CREATE TABLE `transaction` (
 --
 
 INSERT INTO `transaction` (`id`, `bill_number`, `shop_ssn`, `serial_num`, `sum_eur`, `sum_hrk`, `tax_mark`, `tax_base`, `tax_amount`, `in_total`, `refunds`, `refund_amount`, `refunnd_value_one`, `refund_value_two`, `other_details`) VALUES
-(2, '26691/3205/60', '62226620908', '8n54KcUA', 1.46, 10.99, 'A', 8.39, 2.1, 10.49, 0.5, 1, 0.5, 0.07, '{\"Details\":{\r\n\"Plaćeno\":\"Kartica\",\r\n\"Iznos\":\"1,46 EUR 10,99\"\r\n}\r\n}');
+(2, '26691/3205/60', '62226620908', '8n54KcUA', 1.46, 10.99, 'A', 8.39, 2.1, 10.49, 0.5, 1, 0.5, 0.07, '{\"Details\":{\r\n\"Plaćeno\":\"Kartica\",\r\n\"Iznos\":\"1,46 EUR 10,99\"\r\n}\r\n}'),
+(3, '3033/PP4/1', '39314924844', '20002', 12.9, NULL, NULL, 10.32, 2.58, 12.9, NULL, NULL, NULL, NULL, '{\r\n   \"Details\":{\r\n      \"Oznaka operatera\":\"OPERATER 48\",\r\n      \"Način plaćanja\":\"Gotovina\"\r\n   }\r\n}');
 
 -- --------------------------------------------------------
 
@@ -315,49 +324,49 @@ ALTER TABLE `type_off_bill`
 -- AUTO_INCREMENT for table `articles`
 --
 ALTER TABLE `articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `bill_footer`
 --
 ALTER TABLE `bill_footer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `bill_item`
 --
 ALTER TABLE `bill_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `other_shop_or_bill_details`
 --
 ALTER TABLE `other_shop_or_bill_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `shop`
 --
 ALTER TABLE `shop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `shop_detail`
 --
 ALTER TABLE `shop_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `shop_logo`
 --
 ALTER TABLE `shop_logo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `type_off_bill`
