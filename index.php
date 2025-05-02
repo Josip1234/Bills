@@ -32,6 +32,22 @@
       <a href="delete_bills.php" target="_blank" rel="noopener noreferrer">Delete bills</a>
       
     </div>
+    <div class="row">
+        <div class="col">
+                 <a href="new_products.php" target="_blank" rel="noopener noreferrer">Insert new products</a>
+        </div>
+    </div>
+    <div class="row">
+          <div class="col">
+                  <a href="new_shop.php" target="_blank" rel="noopener noreferrer">Insert new shop</a>
+          </div>
+    </div>
+    <div class="row">
+      <div class="col">
+           <a href="insert_new_type_of_bill.php" target="_blank" rel="noopener noreferrer">Insert new type of bill</a>
+      </div>
+
+    </div>
   </div>
 </div>
 </body>
