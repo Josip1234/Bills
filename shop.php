@@ -18,7 +18,7 @@ class Shop{
     function __destruct()
     {
         $this->shop_name="";
-        echo "You can enter new shop.";
+       
     }
 }
 
