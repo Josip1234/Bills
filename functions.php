@@ -10,7 +10,7 @@ function print_all_available_shops(){
     $id=0;
     echo "<h2>Lista upisanih trgovina</h2>";
     echo "<table class='table table-striped'>";
-    echo "<thead><tr><th scope='col'>Redni broj</th><th scope='col'>Naziv trgovine</th></tr></thead>";
+    echo "<thead><tr><th scope='col'>Redni broj</th><th scope='col'>Naziv trgovine</th><th>#</th></tr></thead>";
     echo "<tbody>";
     while($res=mysqli_fetch_array($query)){
         echo "<tr>";
@@ -18,6 +18,7 @@ function print_all_available_shops(){
         $shop=new Shop($res['shop_name']);
         echo "<td>".$id."</td>";
 		echo "<td id='".$shop->get_shop_name()."'>".$shop->get_shop_name()."</td>";
+        echo "<td><button type='button' class='btn btn-light' onclick='showShopDetails()'>Detalji</button></td>";
         echo "</tr>";
 	}
     echo "<tbody>";
