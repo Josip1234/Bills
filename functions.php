@@ -17,7 +17,7 @@ function print_all_available_shops(){
         $id++;
         $shop=new Shop($res['shop_name']);
         echo "<td>".$id."</td>";
-		echo "<td>".$shop->get_shop_name()."</td>";
+		echo "<td id='".$shop->get_shop_name()."'>".$shop->get_shop_name()."</td>";
         echo "</tr>";
 	}
     echo "<tbody>";
