@@ -18,7 +18,7 @@ function print_all_available_shops(){
         $shop=new Shop($res['shop_name']);
         echo "<td>".$id."</td>";
 		echo "<td id='".$shop->get_shop_name()."'>".$shop->get_shop_name()."</td>";
-        echo "<td><button type='button' class='btn btn-light' onclick='showShopDetails()'>Detalji</button></td>";
+        echo "<td><button id='".$shop->get_shop_name()."' type='button' class='btn btn-light' onclick='showShopDetails(this.id)'>Detalji</button></td>";
         echo "</tr>";
 	}
     echo "<tbody>";
