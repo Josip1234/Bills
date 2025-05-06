@@ -26,6 +26,40 @@ function print_all_available_shops(){
     $dbc=mysqli_close($dbc);
 
 }
+function print_shop_details($shop_name){
+    include("dbconn.php");
+   
+    $connection = new DatabaseConnection("localhost","root","","bills","utf8");
+    $dbc=$connection->connectToDatabase();
+    $sql="SELECT * FROM shop_detail WHERE shop_name='$shop_name'";
+    $query=mysqli_query($dbc,$sql);
+    $id=0;
+    echo "<h2>Detalji tražene trgovine</h2>";
+    echo "<table class='table table-striped'>";
+    echo "<thead><tr><th scope='col'>Redni broj</th><th scope='col'>Adresa trgovine</th><th scope='col'>SSN</th><th scope='col'>Broj trgovine</th><th scope='col'>Telefon</th><th scope='col'>Fax</th>
+<th scope='col'>Email</th>
+<th scope='col'>Adresa sjedišta</th>
+<th scope='col'>Web adresa</th></tr></thead>";
+    echo "<tbody>";
+    while($res=mysqli_fetch_array($query)){
+        echo "<tr>";
+        $id++;
+     
+        echo "<td>".$id."</td>";
+		echo "<td>".$res['address']."</td>";
+        echo "<td>".$res['ssn']."</td>";
+        echo "<td>".$res['shop number']."</td>";
+        echo "<td>".$res['telephone']."</td>";
+        echo "<td>".$res['fax']."</td>";
+        echo "<td>".$res['email']."</td>";
+        echo "<td>".$res['hq_address']."</td>";
+        echo "<td>".$res['web_page']."</td>";
+        echo "</tr>";
+	}
+    echo "<tbody>";
+    echo "</table>";
+    $dbc=mysqli_close($dbc);
+}
 
 
 ?>

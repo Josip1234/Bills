@@ -31,7 +31,9 @@
 <div class="col">
     <?php 
 include("functions.php");
-print_all_available_shops();
+include("shop.php");
+$shop_name = new Shop($_GET['shop_name']);
+ echo print_shop_details($shop_name->get_shop_name());
 
 ?>
 </div>
