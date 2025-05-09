@@ -1,6 +1,6 @@
 <?php 
 class Shop{
-    private $shop_name;
+    public $shop_name;
 
     function __construct($shop_name)
     {
@@ -20,6 +20,7 @@ class Shop{
         $this->shop_name="";
        
     }
+    
 }
 
 

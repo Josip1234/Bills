@@ -28,7 +28,7 @@ function print_all_available_shops(){
 }
 function print_shop_details($shop_name){
     include("dbconn.php");
-   
+    include("shop_details.php");
     $connection = new DatabaseConnection("localhost","root","","bills","utf8");
     $dbc=$connection->connectToDatabase();
     $sql="SELECT * FROM shop_detail WHERE shop_name='$shop_name'";
@@ -41,20 +41,14 @@ function print_shop_details($shop_name){
 <th scope='col'>Adresa sjedišta</th>
 <th scope='col'>Web adresa</th></tr></thead>";
     echo "<tbody>";
+    
     while($res=mysqli_fetch_array($query)){
         echo "<tr>";
         $id++;
-     
-        echo "<td>".$id."</td>";
-		echo "<td>".$res['address']."</td>";
-        echo "<td>".$res['ssn']."</td>";
-        echo "<td>".$res['shop number']."</td>";
-        echo "<td>".$res['telephone']."</td>";
-        echo "<td>".$res['fax']."</td>";
-        echo "<td>".$res['email']."</td>";
-        echo "<td>".$res['hq_address']."</td>";
-        echo "<td>".$res['web_page']."</td>";
+     $details=new ShopDetails($id,$shop_name,$res['address'],$res['ssn'],$res['shop number'],$res['telephone'],$res['fax'],$res['email'],$res['hq_address'],$res['web_page']);
+     $details->print_table_data();
         echo "</tr>";
+        $details->setId($id);
 	}
     echo "<tbody>";
     echo "</table>";
