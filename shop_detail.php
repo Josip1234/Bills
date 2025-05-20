@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js" integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+" crossorigin="anonymous"></script>
     <script src="shop.js"></script>
+    <link rel="stylesheet" href="bills.css">
 </head>
 <body>
 <div class="container text-center">
@@ -22,7 +23,7 @@
   </div>
   <div class="row">
     <div class="col">
-      <a href="index.php" target="_blank" rel="noopener noreferrer">Back to main page</a>
+      <a href="new_shop.php" target="_blank" rel="noopener noreferrer">Back to shopping list</a>
       
     </div>
   </div>
