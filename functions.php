@@ -1,12 +1,13 @@
 <?php 
+ include("shop_details.php");
+     $connection = new DatabaseConnection("localhost","root","","bills","utf8");
+    
 //function to print all shops from database
 function print_all_available_shops(){
-    include("dbconn.php");
-    include("shop.php");
-    $connection = new DatabaseConnection("localhost","root","","bills","utf8");
-    $dbc=$connection->connectToDatabase();
+    global $connection;
+    $connection->connectToDatabase();
     $sql="SELECT shop_name FROM shop;";
-    $query=mysqli_query($dbc,$sql);
+    $query=mysqli_query($connection->getDbconn(),$sql);
     $id=0;
     echo "<h2>Lista upisanih trgovina</h2>";
     echo "<table class='table table-striped'>";
@@ -23,21 +24,19 @@ function print_all_available_shops(){
 	}
     echo "<tbody>";
     echo "</table>";
-    $dbc=mysqli_close($dbc);
-
+       $connection->close_database();
 }
 function print_shop_details($shop_name){
-    include("dbconn.php");
-    include("shop_details.php");
      include("shop_logo.php");
+     global $connection;
      $shop=new Shop($shop_name);
     $connection = new DatabaseConnection("localhost","root","","bills","utf8");
-    $dbc=$connection->connectToDatabase();
+    $connection->connectToDatabase();
     $sql="SELECT * FROM shop_detail WHERE shop_name='".$shop->get_shop_name()."'";
-    $query=mysqli_query($dbc,$sql);
+    $query=mysqli_query($connection->getDbconn(),$sql);
     //select logo by shop name from table shop_logo
     $sql2="SELECT * FROM shop_logo WHERE shop_name='".$shop->get_shop_name()."'";
-    $exe_q=mysqli_query($dbc,$sql2);
+    $exe_q=mysqli_query($connection->getDbconn(),$sql2);
     $id=0;
     echo "<h2>Detalji tražene trgovine</h2>";
     echo "<table class='table table-striped'>";
@@ -66,8 +65,30 @@ function print_shop_details($shop_name){
 	}
     echo "<tbody>";
     echo "</table>";
-    $dbc=mysqli_close($dbc);
+     $connection->close_database();
 }
+
+function insert_new_shop(){
+  global $connection;
+  $connection->connectToDatabase();
+    echo "<form action='new_shop.php' method='post'>
+  <div class='input-group mb-3'>
+  <input type='text' class='form-control border border-primary' aria-label='Default' aria-describedby='inputGroup-sizing-default' name='shop_name' id='shop_name' autocomplete='off' size='50' maxlength='255'>
+    <div class='input-group-append'>
+     <input type='submit' value='Insert new shop' class='btn btn-light' id='ns'>
+  </div>
+</div>
+ 
+</form>";
+$shop=new Shop($_POST['shop_name']);
+//INSERT INTO `shop` (`id`, `shop_name`) VALUES (NULL, 'LIDL HRVATSKA d.o.o. k.d.\r\n')
+$sn=$shop->get_shop_name();
+
+$query="INSERT INTO `shop` (`shop_name`) VALUES ('$sn')";
+mysqli_query($connection->getDbconn(),$query);
+ $connection->close_database();
+}
+
 
 
 ?>

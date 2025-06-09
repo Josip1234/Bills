@@ -1,4 +1,5 @@
 <?php 
+include("dbconn.php");
 class Shop{
     public $shop_name;
 

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 04, 2025 at 02:15 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.0.28
+-- Generation Time: Jun 09, 2025 at 10:16 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -181,10 +181,12 @@ CREATE TABLE `shop` (
 --
 
 INSERT INTO `shop` (`id`, `shop_name`) VALUES
+(10, ''),
 (5, 'ASKA d.o.o'),
 (3, 'Crovortex, obrt za trgovinu'),
 (6, 'Kaufland Hrvatska k.d.'),
 (1, 'KONZUM plus d.o.o.'),
+(9, 'LIDL HRVATSKA d.o.o. k.d.'),
 (2, 'T.O. Koala Vl. M.Jelic'),
 (4, 'TISAK plus d.o.o');
 
@@ -237,12 +239,12 @@ CREATE TABLE `shop_logo` (
 --
 
 INSERT INTO `shop_logo` (`id`, `shop_name`, `logo1_url`, `logo2_url`) VALUES
-(1, 'KONZUM plus d.o.o.', 'C:\\Users\\Korisnik\\Desktop\\xmp\\htdocs\\Bills\\konzum_logo.png', ''),
-(2, 'T.O. Koala Vl. M.Jelic', 'C:\\Users\\Korisnik\\Desktop\\xmp\\htdocs\\Bills\\koala_logo.png', ''),
-(3, 'Crovortex, obrt za trgovinu', 'C:\\Users\\Korisnik\\Desktop\\xmp\\htdocs\\Bills\\crovertex_logo.png', ''),
-(4, 'TISAK plus d.o.o', 'C:\\Users\\Korisnik\\Desktop\\xmp\\htdocs\\Bills\\tisak_logo.png', ''),
-(5, 'ASKA d.o.o', 'C:\\Users\\Korisnik\\Desktop\\xmp\\htdocs\\Bills\\aska_logo.png', ''),
-(6, 'Kaufland Hrvatska k.d.', 'C:\\Users\\Korisnik\\Desktop\\xmp\\htdocs\\Bills\\kaufland_logo.png', '');
+(1, 'KONZUM plus d.o.o.', 'konzum_logo.png', ''),
+(2, 'T.O. Koala Vl. M.Jelic', 'koala_logo.png', ''),
+(3, 'Crovortex, obrt za trgovinu', 'crovertex_logo.png', ''),
+(4, 'TISAK plus d.o.o', 'tisak_logo.png', ''),
+(5, 'ASKA d.o.o', 'aska_logo.png', ''),
+(6, 'Kaufland Hrvatska k.d.', 'kaufland_logo.png', '');
 
 -- --------------------------------------------------------
 
@@ -429,7 +431,7 @@ ALTER TABLE `other_shop_or_bill_details`
 -- AUTO_INCREMENT for table `shop`
 --
 ALTER TABLE `shop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `shop_detail`
