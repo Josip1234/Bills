@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2025 at 10:16 PM
+-- Generation Time: Jun 11, 2025 at 10:53 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -181,12 +181,12 @@ CREATE TABLE `shop` (
 --
 
 INSERT INTO `shop` (`id`, `shop_name`) VALUES
-(10, ''),
 (5, 'ASKA d.o.o'),
 (3, 'Crovortex, obrt za trgovinu'),
 (6, 'Kaufland Hrvatska k.d.'),
 (1, 'KONZUM plus d.o.o.'),
 (9, 'LIDL HRVATSKA d.o.o. k.d.'),
+(19, 'motherfucker'),
 (2, 'T.O. Koala Vl. M.Jelic'),
 (4, 'TISAK plus d.o.o');
 
@@ -431,7 +431,7 @@ ALTER TABLE `other_shop_or_bill_details`
 -- AUTO_INCREMENT for table `shop`
 --
 ALTER TABLE `shop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `shop_detail`

@@ -141,11 +141,11 @@ function validate_data($what_data_to_validate,$data){
         //need only one result using fetch column
         $result=$execute_query->fetch_column();
        
-        if($result=="1"){
+        if($result>0){
             $passed=0;
           
-        }else if($result=="0"){
-            $passed==1;
+        }else if($result==0){
+            $passed=1;
            
         }else{
             die("Invalid data.");
@@ -154,7 +154,7 @@ function validate_data($what_data_to_validate,$data){
         }
 
     }
-    echo $passed;
+  
     return $passed;
 }
 
