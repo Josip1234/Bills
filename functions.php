@@ -1,5 +1,6 @@
 <?php 
  include("shop_details.php");
+ include("validation_message.php");
      $connection = new DatabaseConnection("localhost","root","","bills","utf8");
     
 //function to print all shops from database
@@ -69,9 +70,10 @@ function print_shop_details($shop_name){
 }
 
 function insert_new_shop(){
+    $shop_name="";
   global $connection;
   $connection->connectToDatabase();
-    echo "<form action='new_shop.php' method='post'>
+    echo "<form action='".htmlspecialchars($_SERVER["PHP_SELF"])."' method='post'>
   <div class='input-group mb-3'>
   <input type='text' class='form-control border border-primary' aria-label='Default' aria-describedby='inputGroup-sizing-default' name='shop_name' id='shop_name' autocomplete='off' size='50' maxlength='255'>
     <div class='input-group-append'>
@@ -80,15 +82,81 @@ function insert_new_shop(){
 </div>
  
 </form>";
-$shop=new Shop($_POST['shop_name']);
-//INSERT INTO `shop` (`id`, `shop_name`) VALUES (NULL, 'LIDL HRVATSKA d.o.o. k.d.\r\n')
-$sn=$shop->get_shop_name();
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$shop=new Shop($_POST['shop_name']);
+$sn=$shop->get_shop_name();
+//add shop name to array to use clean data function to clean and trim data as security feature
+$shop_array=array();
+$shop_array[]=$sn;
+//number of data will be known since we will process post data 
+//number of post data is equal number of fields in html form written by programmer
+$shop_array=clean_data($shop_array);
+//we will set new object to recieve clean data
+$shop->set_shop_name($shop_array[0]);
+//after that validation will be made
+$validation=validate_data("shop_name",$shop->get_shop_name());
+//if validation has passed insert record into database
+//in any other case display error
+
+if($validation==1){
+$sn=$shop->get_shop_name();
 $query="INSERT INTO `shop` (`shop_name`) VALUES ('$sn')";
 mysqli_query($connection->getDbconn(),$query);
  $connection->close_database();
+}else if($validation==0){
+  echo Validation::SHOP_ALREADY_EXISTS;
+  $connection->close_database();
+}else{
+    echo "Invalid value";
 }
 
+}
+}
+//function for trimming, strip_slashes and htmlspecialchar
+//will use array structure since we will use this as multiple cleaning data.
+//return values will also be array
+function clean_data($array_of_data){
+    $new_array=array();
+foreach ($array_of_data as $value) {
+  $value = trim($value);
+  $value = stripslashes($value);
+  $value = htmlspecialchars($value);
+  $new_array[]=$value;
+}
+return $new_array;
+}
+//validate data for unique values if exists will return error message entry already exists.
+//will query database also
+//$data is one string or numeric value which will be validated one by one
+//function will return true if validation has passed, false if it is not
+function validate_data($what_data_to_validate,$data){
+
+    global $connection;
+    $connection->connectToDatabase();
+    $passed=0;
+    if($what_data_to_validate=="shop_name"){
+        $sql="SELECT COUNT(*) FROM `shop` WHERE `shop_name`= '$data'";
+        $execute_query=mysqli_query($connection->getDbconn(),$sql);
+        //need only one result using fetch column
+        $result=$execute_query->fetch_column();
+       
+        if($result=="1"){
+            $passed=0;
+          
+        }else if($result=="0"){
+            $passed==1;
+           
+        }else{
+            die("Invalid data.");
+             $passed=0;
+          
+        }
+
+    }
+    echo $passed;
+    return $passed;
+}
 
 
 ?>
