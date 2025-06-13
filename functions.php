@@ -101,9 +101,13 @@ $validation=validate_data("shop_name",$shop->get_shop_name());
 
 if($validation==1){
 $sn=$shop->get_shop_name();
-$query="INSERT INTO `shop` (`shop_name`) VALUES ('$sn')";
-mysqli_query($connection->getDbconn(),$query);
+//$query="INSERT INTO `shop` (`shop_name`) VALUES ('$sn')";
+$statement=$connection->getDbconn()->prepare("INSERT INTO shop (shop_name) VALUES (?)");
+$statement->bind_param('s',$sn);
+$statement->execute();
+$statement->close();
  $connection->close_database();
+echo "<script type='text/javascript'> document.location = 'new_shop.php'; </script>";
 }else if($validation==0){
   echo Validation::SHOP_ALREADY_EXISTS;
   $connection->close_database();
