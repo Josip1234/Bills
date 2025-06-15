@@ -3,7 +3,7 @@
  include("validation_message.php");
  include("pagination.php");
      $connection = new DatabaseConnection("localhost","root","","bills","utf8");
-     $pagination = new Pagination("yes","yes",0,$_GET['current_url'],0);
+     $pagination = new Pagination("yes","yes",0,0,0);
     
 //function to print all shops from database
 function print_all_available_shops(){
@@ -94,6 +94,9 @@ function insert_new_shop(){
 </form>";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if(empty($_POST['shop_name'])){
+    echo "Error!!! The record you wanted to insert is empty. Please, enter non-empty entry.";
+  }else{
 $shop=new Shop($_POST['shop_name']);
 $sn=$shop->get_shop_name();
 //add shop name to array to use clean data function to clean and trim data as security feature
@@ -117,14 +120,14 @@ $statement->bind_param('s',$sn);
 $statement->execute();
 $statement->close();
  $connection->close_database();
-echo "<script type='text/javascript'> document.location = 'new_shop.php'; </script>";
+echo "<script type='text/javascript'> document.location = 'new_shop.php?current_url=0'; </script>";
 }else if($validation==0){
   echo Validation::SHOP_ALREADY_EXISTS;
   $connection->close_database();
 }else{
     echo "Invalid value";
 }
-
+  }
 }
 }
 //function for trimming, strip_slashes and htmlspecialchar
