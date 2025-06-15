@@ -21,30 +21,30 @@
   </div>
   <div class="row">
     <div class="col">
-      <a href="insert_new_bill.php" target="_blank" rel="noopener noreferrer">Insert new bill</a>
+      <a href="insert_new_bill.php" target="_self" rel="noopener noreferrer"  >Insert new bill</a>
       
     </div>
     <div class="col">
-      <a href="update_bill.php" target="_blank" rel="noopener noreferrer"> Update bill</a>
+      <a href="update_bill.php" target="_self" rel="noopener noreferrer"> Update bill</a>
      
     </div>
     <div class="col">
-      <a href="delete_bills.php" target="_blank" rel="noopener noreferrer">Delete bills</a>
+      <a href="delete_bills.php" target="_self" rel="noopener noreferrer">Delete bills</a>
       
     </div>
     <div class="row">
         <div class="col">
-                 <a href="new_products.php" target="_blank" rel="noopener noreferrer">Insert new products</a>
+                 <a href="new_products.php" target="_self" rel="noopener noreferrer">Insert new products</a>
         </div>
     </div>
     <div class="row">
           <div class="col">
-                  <a href="new_shop.php" target="_blank" rel="noopener noreferrer">Insert new shop</a>
+                  <a href="new_shop.php?current_url=0" target="_self" rel="noopener noreferrer">Insert new shop</a>
           </div>
     </div>
     <div class="row">
       <div class="col">
-           <a href="insert_new_type_of_bill.php" target="_blank" rel="noopener noreferrer">Insert new type of bill</a>
+           <a href="insert_new_type_of_bill.php" target="_self" rel="noopener noreferrer">Insert new type of bill</a>
       </div>
 
     </div>
