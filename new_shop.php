@@ -23,7 +23,7 @@
   </div>
   <div class="row">
     <div class="col">
-      <a href="index.php" target="_blank" rel="noopener noreferrer">Back to main page</a>
+      <a href="index.php" target="_self" rel="noopener noreferrer">Back to main page</a>
       
     </div>
   </div>

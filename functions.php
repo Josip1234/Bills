@@ -1,10 +1,13 @@
 <?php 
  include("shop_details.php");
  include("validation_message.php");
+ include("pagination.php");
      $connection = new DatabaseConnection("localhost","root","","bills","utf8");
+     $pagination = new Pagination("yes","yes",0,$_GET['current_url'],0);
     
 //function to print all shops from database
 function print_all_available_shops(){
+    global $pagination;
     global $connection;
     $connection->connectToDatabase();
     $sql="SELECT shop_name FROM shop;";
@@ -24,6 +27,13 @@ function print_all_available_shops(){
         echo "</tr>";
 	}
     echo "<tbody>";
+      echo "<tfoot>";
+    echo "<tr>";
+      echo "<td><button id='previous' type='button' class='btn btn-light'>Previous</button></td>";
+      echo "<td>".$pagination->getCurrentUrl()."</td>";
+      echo "<td><button id='next' type='button' class='btn btn-light'>Next</button></td>";
+    echo "</tr>";
+  echo "</tfoot>";
     echo "</table>";
        $connection->close_database();
 }
