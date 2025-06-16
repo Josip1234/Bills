@@ -4,6 +4,7 @@
  include("pagination.php");
      $connection = new DatabaseConnection("localhost","root","","bills","utf8");
      $pagination = new Pagination("yes","yes",0,0,0);
+ 
     
 //function to print all shops from database
 function print_all_available_shops(){
@@ -80,12 +81,19 @@ function print_shop_details($shop_name){
 }
 
 function insert_new_shop(){
-    $shop_name="";
+  $shop1=new Shop("");
+  //this is a fix for array undefined error
+  //after successfull entry do i need to have value from shop name in input field?
+  if(!isset($_POST['shop_name'])){
+      $_POST['shop_name']="";
+  }else{
+    $shop1->set_shop_name($_POST['shop_name']);
+  }
   global $connection;
   $connection->connectToDatabase();
     echo "<form action='".htmlspecialchars($_SERVER["PHP_SELF"])."' method='post'>
-  <div class='input-group mb-3'>
-  <input type='text' class='form-control border border-primary' aria-label='Default' aria-describedby='inputGroup-sizing-default' name='shop_name' id='shop_name' autocomplete='off' size='50' maxlength='255'>
+  <div class='input-group mb-3'> 
+  <input type='text' class='form-control border border-primary' aria-label='Default' aria-describedby='inputGroup-sizing-default' name='shop_name' id='shop_name' autocomplete='off' size='50' maxlength='255' value='".$shop1->get_shop_name()."'>
     <div class='input-group-append'>
      <input type='submit' value='Insert new shop' class='btn btn-light' id='ns'>
   </div>
@@ -97,7 +105,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if(empty($_POST['shop_name'])){
     echo "Error!!! The record you wanted to insert is empty. Please, enter non-empty entry.";
   }else{
-$shop=new Shop($_POST['shop_name']);
+  $shop=new Shop("");
+$shop->set_shop_name($_POST['shop_name']);
 $sn=$shop->get_shop_name();
 //add shop name to array to use clean data function to clean and trim data as security feature
 $shop_array=array();
@@ -120,7 +129,7 @@ $statement->bind_param('s',$sn);
 $statement->execute();
 $statement->close();
  $connection->close_database();
-echo "<script type='text/javascript'> document.location = 'new_shop.php?current_url=0'; </script>";
+echo "<script type='text/javascript'> document.location = 'new_shop.php?current_url=0';  </script>";
 }else if($validation==0){
   echo Validation::SHOP_ALREADY_EXISTS;
   $connection->close_database();
@@ -132,7 +141,8 @@ echo "<script type='text/javascript'> document.location = 'new_shop.php?current_
 }
 //function for trimming, strip_slashes and htmlspecialchar
 //will use array structure since we will use this as multiple cleaning data.
-//return values will also be array
+//return values will also be array $_GET['var1], $POST['var2'],$_POST['var_3] array of multiple get and post methods
+//reusability
 function clean_data($array_of_data){
     $new_array=array();
 foreach ($array_of_data as $value) {
