@@ -41,7 +41,13 @@ function print_all_available_shops(){
     echo "<td><button id='previous' type='button' class='btn btn-light'>Previous</button></td>";
     }
       echo "<td>".$pagination->getPageNumber()."</td>";
-      echo "<td><button id='next' type='button' class='btn btn-light'>Next</button></td>";
+      //increase pagination values for 10 next url will have number 20
+      //in every other case set pagination to 10
+      if(isset($_GET['current_url'])){
+          $pagination->setNextUrl($_GET['current_url']);
+          $pagination->setCurrentUrl($_GET['current_url']);
+      }
+      echo "<td><button id='next' type='button' class='btn btn-light' onclick='set_url_value(".$pagination->getNextUrl().")'>Next</button></td>";
     echo "</tr>";
   echo "</tfoot>";
     echo "</table>";
@@ -113,6 +119,7 @@ function insert_new_shop(){
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if(empty($_POST['shop_name'])){
     echo "Error!!! The record you wanted to insert is empty. Please, enter non-empty entry.";
+    
   }else{
   $shop=new Shop("");
 $shop->set_shop_name($_POST['shop_name']);
