@@ -11,7 +11,9 @@ function print_all_available_shops(){
     global $pagination;
     global $connection;
     $connection->connectToDatabase();
-    $sql="SELECT shop_name FROM shop LIMIT 10";
+    //default limit is 10 if we wish to increase it, we could change constant value manually in Pagination class
+    $limit=Pagination::LIMIT_PER_PAGE;
+    $sql="SELECT shop_name FROM shop LIMIT $limit";
     $query=mysqli_query($connection->getDbconn(),$sql);
     $id=0;
     echo "<h2>Lista upisanih trgovina</h2>";
