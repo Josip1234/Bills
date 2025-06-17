@@ -3,7 +3,7 @@
  include("validation_message.php");
  include("pagination.php");
      $connection = new DatabaseConnection("localhost","root","","bills","utf8");
-     $pagination = new Pagination("yes","yes",0,0,0);
+     $pagination = new Pagination("yes","yes",0,0,0,1);
  
     
 //function to print all shops from database
@@ -30,8 +30,15 @@ function print_all_available_shops(){
     echo "<tbody>";
       echo "<tfoot>";
     echo "<tr>";
-      echo "<td><button id='previous' type='button' class='btn btn-light'>Previous</button></td>";
-      echo "<td>".$pagination->getCurrentUrl()."</td>";
+    //if previous is less than 0 then user cannot click on him
+    //set previous button to disabled
+    $pagination->setPreviousUrl(0);
+    if($pagination->getPreviousUrl()<0){
+     echo "<td><button id='previous' type='button' class='btn btn-light disabled' aria-disabled='true'>Previous</button></td>";
+    }else{
+    echo "<td><button id='previous' type='button' class='btn btn-light'>Previous</button></td>";
+    }
+      echo "<td>".$pagination->getPageNumber()."</td>";
       echo "<td><button id='next' type='button' class='btn btn-light'>Next</button></td>";
     echo "</tr>";
   echo "</tfoot>";

@@ -14,8 +14,9 @@ private $disable_next;
 private $previous_url;
 private $current_url;
 private $next_url;
+private $page_number;
 
-public function __construct( $disable_previous,  $disable_next,  $previous_url,  $current_url,  $next_url){$this->disable_previous = $disable_previous;$this->disable_next = $disable_next;$this->previous_url = $previous_url;$this->current_url = $current_url;$this->next_url = $next_url;}
+public function __construct( $disable_previous,  $disable_next,  $previous_url,  $current_url,  $next_url,$page_number){$this->disable_previous = $disable_previous;$this->disable_next = $disable_next;$this->previous_url = $previous_url;$this->current_url = $current_url;$this->next_url = $next_url;$this->page_number=$page_number;}
 	public function getDisablePrevious() {return $this->disable_previous;}
 
 	public function getDisableNext() {return $this->disable_next;}
@@ -36,6 +37,12 @@ public function __construct( $disable_previous,  $disable_next,  $previous_url, 
     //increment number of records of database
 	public function setNextUrl( $next_url): void {$this->next_url = $next_url+Pagination::LIMIT_PER_PAGE;}
 
+	public function getPageNumber() {return $this->page_number;}
+
+	public function setPageNumber( $page_number): void {$this->page_number = $page_number;}
+
+	
+	
 	
 
 }
