@@ -11,7 +11,7 @@ function print_all_available_shops(){
     global $pagination;
     global $connection;
     $connection->connectToDatabase();
-    $sql="SELECT shop_name FROM shop;";
+    $sql="SELECT shop_name FROM shop LIMIT 10";
     $query=mysqli_query($connection->getDbconn(),$sql);
     $id=0;
     echo "<h2>Lista upisanih trgovina</h2>";
