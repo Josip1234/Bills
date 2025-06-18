@@ -156,6 +156,7 @@ function insert_new_shop()
         $statement->execute();
         $statement->close();
         $connection->close_database();
+          echo "Successfully inserted new record.";
       } else if ($validation == 0) {
         echo Validation::SHOP_ALREADY_EXISTS;
         $connection->close_database();
