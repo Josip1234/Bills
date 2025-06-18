@@ -11,7 +11,7 @@
     <script src="shop.js"></script>
     <link rel="stylesheet" href="shop.css">
 </head>
-<body onload='countClick()'>
+<body>
 <div class="container text-center">
 <div class="row">
     <div class="col">
