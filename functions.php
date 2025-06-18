@@ -21,6 +21,7 @@ function print_all_available_shops()
   $pagination->setUpperLimit($_GET['current_url']);
   $downlimit = $pagination->countDownLimit();
   $uplimit = $pagination->getUpperLimit();
+  //this should be changed to prepare statements
   $sql = "SELECT shop_name FROM shop LIMIT $downlimit,$uplimit";
   $query = mysqli_query($connection->getDbconn(), $sql);
   $id = 0;
@@ -56,10 +57,10 @@ function print_all_available_shops()
     echo "<td><button id='previous' type='button' class='btn btn-light' onclick='set_url_value(" . $pagination->getPreviousUrl() . ")'>Previous</button></td>";
   }
 
-  echo "<td id='display'>" . $pagination->getPageNumber() . "</td>";
+  echo "<td>" . "<span id='display'></span>" . "</td>";
 //we need to query from database how much records does it have to check if next is greather than maximal data 
 //check will be like as previous to disable next if there is no data anymore available
-  echo "<td><button id='next' type='button' class='btn btn-light' onclick='set_url_value(" . $pagination->getNextUrl() . ")'>Next</button></td>";
+  echo "<td><button id='next' type='button' class='btn btn-light'  onclick='set_url_value(" . $pagination->getNextUrl() . ")'>Next</button></td>";
   echo "</tr>";
   echo "</tfoot>";
   echo "</table>";
