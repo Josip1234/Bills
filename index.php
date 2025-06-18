@@ -39,7 +39,7 @@
     </div>
     <div class="row">
           <div class="col">
-                  <a href="new_shop.php?current_url=0" target="_self" rel="noopener noreferrer">Insert new shop</a>
+                  <a href="new_shop.php?current_url=0&page_number=1" target="_self" rel="noopener noreferrer">Insert new shop</a>
           </div>
     </div>
     <div class="row">

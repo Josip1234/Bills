@@ -8,10 +8,13 @@ function set_url_value(value){
     var loc=window.location;
     //set temp variable do not change original location yet
     var temp=loc.toString();
+    //remove until page number in php is implemented correct
+    var tmp2=temp.replace(/\Spage_number=\d/g,"");
     //replace single digit
-    var location=temp.replace(/[0-9]/g,"");
+    var location=tmp2.replace(/[0-9]/g,"");
     //append next value
     var append=location+value;
+    alert(append);
     //now replace original url with append variable which contains next value
     window.location=append;
   

@@ -15,7 +15,6 @@ private $previous_url;
 private $current_url;
 private $next_url;
 private $page_number;
-private $dynamic_limit;
 private $upper_limit;
 private $down_limit;
 
@@ -42,11 +41,7 @@ public function __construct( $disable_previous,  $disable_next,  $previous_url, 
 
 	public function getPageNumber() {return $this->page_number;}
 
-	public function setPageNumber( $page_number){$this->page_number = $page_number;}
-
-	public function getDynamicLimit() {return $this->dynamic_limit;}
-
-	public function setDynamicLimit( $dynamic_limit){$this->dynamic_limit = $dynamic_limit;}
+	public function setPageNumber( $page_number){$this->page_number = $page_number+1;}
 
 	public function getUpperLimit() {return $this->upper_limit;}
 
