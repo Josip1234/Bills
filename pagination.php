@@ -15,6 +15,7 @@ private $previous_url;
 private $current_url;
 private $next_url;
 private $page_number;
+private $dynamic_limit;
 
 public function __construct( $disable_previous,  $disable_next,  $previous_url,  $current_url,  $next_url,$page_number){$this->disable_previous = $disable_previous;$this->disable_next = $disable_next;$this->previous_url = $previous_url;$this->current_url = $current_url;$this->next_url = $next_url;$this->page_number=$page_number;}
 	public function getDisablePrevious() {return $this->disable_previous;}
@@ -40,6 +41,10 @@ public function __construct( $disable_previous,  $disable_next,  $previous_url, 
 	public function getPageNumber() {return $this->page_number;}
 
 	public function setPageNumber( $page_number): void {$this->page_number = $page_number;}
+
+	public function getDynamicLimit() {return $this->dynamic_limit;}
+
+	public function setDynamicLimit( $dynamic_limit): void {$this->dynamic_limit = $dynamic_limit;}
 
 	
 	
