@@ -19,8 +19,7 @@ function print_all_available_shops(){
      $pagination->setPreviousUrl($_GET['current_url']);
     $pagination->setUpperLimit($_GET['current_url']);
     $downlimit=$pagination->countDownLimit();
-    echo "Down limit: ".$downlimit." ";
-    echo "Up limit: " .$pagination->getUpperLimit()." ";
+    $uplimit=$pagination->getUpperLimit();
 
     if($pagination->getCurrentUrl()==0){
  $limit=Pagination::LIMIT_PER_PAGE;
@@ -28,7 +27,7 @@ function print_all_available_shops(){
       $pagination->setDynamicLimit($_GET['current_url']);
       $limit=$pagination->getDynamicLimit();
     }
-    $sql="SELECT shop_name FROM shop LIMIT $limit";
+    $sql="SELECT shop_name FROM shop LIMIT $downlimit,$uplimit";
     $query=mysqli_query($connection->getDbconn(),$sql);
     $id=0;
     echo "<h2>Lista upisanih trgovina</h2>";
