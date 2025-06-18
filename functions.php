@@ -20,13 +20,6 @@ function print_all_available_shops(){
     $pagination->setUpperLimit($_GET['current_url']);
     $downlimit=$pagination->countDownLimit();
     $uplimit=$pagination->getUpperLimit();
-
-    if($pagination->getCurrentUrl()==0){
- $limit=Pagination::LIMIT_PER_PAGE;
-    }else{
-      $pagination->setDynamicLimit($_GET['current_url']);
-      $limit=$pagination->getDynamicLimit();
-    }
     $sql="SELECT shop_name FROM shop LIMIT $downlimit,$uplimit";
     $query=mysqli_query($connection->getDbconn(),$sql);
     $id=0;
