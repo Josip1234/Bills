@@ -12,7 +12,7 @@ function print_all_available_shops()
   global $pagination;
   global $connection;
   $connection->connectToDatabase();
-
+  
   //default limit is 10 if we wish to increase it, we could change constant value manually in Pagination class
   //this will be used at the start we need to check if current url is zero
   //if current url is greater than zero set dynamic limit else use constant limit
@@ -50,13 +50,13 @@ function print_all_available_shops()
   }
   //if previous is less than 0 then user cannot click on him
   //set previous button to disabled
-  if ($pagination->getPreviousUrl() < 10) {
+  if ($pagination->getPreviousUrl() < 0) {
     echo "<td><button id='previous' type='button' class='btn btn-light disabled' aria-disabled='true'>Previous</button></td>";
   } else {
     echo "<td><button id='previous' type='button' class='btn btn-light' onclick='set_url_value(" . $pagination->getPreviousUrl() . ")'>Previous</button></td>";
   }
 
-  echo "<td>" . $pagination->getPageNumber() . "</td>";
+  echo "<td id='display'>" . $pagination->getPageNumber() . "</td>";
 //we need to query from database how much records does it have to check if next is greather than maximal data 
 //check will be like as previous to disable next if there is no data anymore available
   echo "<td><button id='next' type='button' class='btn btn-light' onclick='set_url_value(" . $pagination->getNextUrl() . ")'>Next</button></td>";
@@ -64,6 +64,7 @@ function print_all_available_shops()
   echo "</tfoot>";
   echo "</table>";
   $connection->close_database();
+  
 }
 function print_shop_details($shop_name)
 {

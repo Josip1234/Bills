@@ -1,20 +1,21 @@
-function showShopDetails(id){
+function showShopDetails(id) {
     //alert(id);
-    var shop_name=id;
-    window.open("http://localhost/Bills/shop_detail.php?shop_name="+shop_name);
+    var shop_name = id;
+    window.open("http://localhost/Bills/shop_detail.php?shop_name=" + shop_name);
 }
-function set_url_value(value){
+function set_url_value(value) {
     //get current url location
-    var loc=window.location;
+    var loc = window.location;
     //set temp variable do not change original location yet
-    var temp=loc.toString();
+    var temp = loc.toString();
     //remove until page number in php is implemented correct
-    var tmp2=temp.replace(/\Spage_number=\d/g,"");
+    var tmp2 = temp.replace(/\Spage_number=\d/g, "");
     //replace single digit
-    var location=tmp2.replace(/[0-9]/g,"");
+    var location = tmp2.replace(/[0-9]/g, "");
     //append next value
-    var append=location+value;
+    var append = location + value;
     //now replace original url with append variable which contains next value
-    window.location=append;
-  
+    window.location = append;
+
 }
+
