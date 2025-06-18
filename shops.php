@@ -33,7 +33,6 @@
     <?php 
 include("functions.php");
 print_all_available_shops();
-insert_new_shop();
 ?>
 </div>
 </div>

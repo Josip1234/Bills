@@ -155,7 +155,7 @@ $statement->bind_param('s',$sn);
 $statement->execute();
 $statement->close();
  $connection->close_database();
-echo "<script type='text/javascript'> document.location = 'new_shop.php?current_url=0';  </script>";
+echo "<script type='text/javascript'> document.location = 'new_shop.php?current_url=0&page_number=1';  </script>";
 }else if($validation==0){
   echo Validation::SHOP_ALREADY_EXISTS;
   $connection->close_database();

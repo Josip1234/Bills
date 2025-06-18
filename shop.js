@@ -14,7 +14,6 @@ function set_url_value(value){
     var location=tmp2.replace(/[0-9]/g,"");
     //append next value
     var append=location+value;
-    alert(append);
     //now replace original url with append variable which contains next value
     window.location=append;
   
