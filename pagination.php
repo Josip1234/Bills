@@ -59,9 +59,9 @@ public function __construct( $disable_previous,  $disable_next,  $previous_url, 
 	public function countDownLimit(){
 		$downLimit=0;
 		if($this->getCurrentUrl()==0){
-			$downLimit=1;
+			$downLimit=0;
 		}else{
-			$downLimit=$this->getCurrentUrl()-Pagination::LIMIT_PER_PAGE+1;
+			$downLimit=$this->getCurrentUrl()-Pagination::LIMIT_PER_PAGE;
 		}
 		return $downLimit;
 	}
