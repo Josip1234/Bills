@@ -49,7 +49,7 @@ function print_all_available_shops(){
       }
     //if previous is less than 0 then user cannot click on him
     //set previous button to disabled
-        if($pagination->getPreviousUrl()<0){
+        if($pagination->getPreviousUrl()<10){
      echo "<td><button id='previous' type='button' class='btn btn-light disabled' aria-disabled='true'>Previous</button></td>";
     }else{
     echo "<td><button id='previous' type='button' class='btn btn-light' onclick='set_url_value(".$pagination->getPreviousUrl().")'>Previous</button></td>";
