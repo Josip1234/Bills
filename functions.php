@@ -32,21 +32,24 @@ function print_all_available_shops(){
     echo "<tbody>";
       echo "<tfoot>";
     echo "<tr>";
-    //if previous is less than 0 then user cannot click on him
-    //set previous button to disabled
-    $pagination->setPreviousUrl(0);
-    if($pagination->getPreviousUrl()<0){
-     echo "<td><button id='previous' type='button' class='btn btn-light disabled' aria-disabled='true'>Previous</button></td>";
-    }else{
-    echo "<td><button id='previous' type='button' class='btn btn-light'>Previous</button></td>";
-    }
-      echo "<td>".$pagination->getPageNumber()."</td>";
+
       //increase pagination values for 10 next url will have number 20
       //in every other case set pagination to 10
       if(isset($_GET['current_url'])){
           $pagination->setNextUrl($_GET['current_url']);
           $pagination->setCurrentUrl($_GET['current_url']);
+          $pagination->setPreviousUrl($_GET['current_url']);
       }
+    //if previous is less than 0 then user cannot click on him
+    //set previous button to disabled
+        if($pagination->getPreviousUrl()<0){
+     echo "<td><button id='previous' type='button' class='btn btn-light disabled' aria-disabled='true'>Previous</button></td>";
+    }else{
+    echo "<td><button id='previous' type='button' class='btn btn-light' onclick='set_url_value(".$pagination->getPreviousUrl().")'>Previous</button></td>";
+    }
+   
+      echo "<td>".$pagination->getPageNumber()."</td>";
+    
       echo "<td><button id='next' type='button' class='btn btn-light' onclick='set_url_value(".$pagination->getNextUrl().")'>Next</button></td>";
     echo "</tr>";
   echo "</tfoot>";
