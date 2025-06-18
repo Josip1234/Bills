@@ -16,6 +16,8 @@ private $current_url;
 private $next_url;
 private $page_number;
 private $dynamic_limit;
+private $upper_limit;
+private $down_limit;
 
 public function __construct( $disable_previous,  $disable_next,  $previous_url,  $current_url,  $next_url,$page_number){$this->disable_previous = $disable_previous;$this->disable_next = $disable_next;$this->previous_url = $previous_url;$this->current_url = $current_url;$this->next_url = $next_url;$this->page_number=$page_number;}
 	public function getDisablePrevious() {return $this->disable_previous;}
@@ -28,25 +30,46 @@ public function __construct( $disable_previous,  $disable_next,  $previous_url, 
 
 	public function getNextUrl() {return $this->next_url;}
 
-	public function setDisablePrevious( $disable_previous): void {$this->disable_previous = $disable_previous;}
+	public function setDisablePrevious( $disable_previous){$this->disable_previous = $disable_previous;}
 
-	public function setDisableNext( $disable_next): void {$this->disable_next = $disable_next;}
+	public function setDisableNext( $disable_next){$this->disable_next = $disable_next;}
     //decrement number of records of database
-	public function setPreviousUrl( $previous_url): void {$this->previous_url = $previous_url-Pagination::LIMIT_PER_PAGE;}
+	public function setPreviousUrl( $previous_url){$this->previous_url = $previous_url-Pagination::LIMIT_PER_PAGE;}
 
-	public function setCurrentUrl( $current_url): void {$this->current_url = $current_url;}
+	public function setCurrentUrl( $current_url){$this->current_url = $current_url;}
     //increment number of records of database
-	public function setNextUrl( $next_url): void {$this->next_url = $next_url+Pagination::LIMIT_PER_PAGE;}
+	public function setNextUrl( $next_url){$this->next_url = $next_url+Pagination::LIMIT_PER_PAGE;}
 
 	public function getPageNumber() {return $this->page_number;}
 
-	public function setPageNumber( $page_number): void {$this->page_number = $page_number;}
+	public function setPageNumber( $page_number){$this->page_number = $page_number;}
 
 	public function getDynamicLimit() {return $this->dynamic_limit;}
 
-	public function setDynamicLimit( $dynamic_limit): void {$this->dynamic_limit = $dynamic_limit;}
+	public function setDynamicLimit( $dynamic_limit){$this->dynamic_limit = $dynamic_limit;}
 
+	public function getUpperLimit() {return $this->upper_limit;}
+
+	public function getDownLimit() {return $this->down_limit;}
+
+	public function setUpperLimit( $upper_limit){$this->upper_limit = $upper_limit;}
+
+	public function setDownLimit() {return $this->down_limit;}
 	
+	//limit for pagination will count like this
+	//if current url is equal to zero, down limit will be 1
+	//query will return data from database between 1 and upper limit
+	//in every other case, limit will be counted value of current url minus value from previous url plus 1
+	//data will be from for example, if previous url is 10, then down limit will be 11
+	public function countDownLimit(){
+		$downLimit=0;
+		if($this->getCurrentUrl()==0){
+			$downLimit=1;
+		}else{
+			$downLimit=$this->getCurrentUrl()-Pagination::LIMIT_PER_PAGE+1;
+		}
+		return $downLimit;
+	}
 	
 	
 

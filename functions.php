@@ -11,16 +11,22 @@ function print_all_available_shops(){
     global $pagination;
     global $connection;
     $connection->connectToDatabase();
+
     //default limit is 10 if we wish to increase it, we could change constant value manually in Pagination class
     //this will be used at the start we need to check if current url is zero
     //if current url is greater than zero set dynamic limit else use constant limit
     $pagination->setCurrentUrl($_GET['current_url']);
+     $pagination->setPreviousUrl($_GET['current_url']);
+    $pagination->setUpperLimit($_GET['current_url']);
+    $downlimit=$pagination->countDownLimit();
+    echo "Down limit: ".$downlimit." ";
+    echo "Up limit: " .$pagination->getUpperLimit()." ";
+
     if($pagination->getCurrentUrl()==0){
  $limit=Pagination::LIMIT_PER_PAGE;
     }else{
       $pagination->setDynamicLimit($_GET['current_url']);
       $limit=$pagination->getDynamicLimit();
-      echo $limit;
     }
     $sql="SELECT shop_name FROM shop LIMIT $limit";
     $query=mysqli_query($connection->getDbconn(),$sql);
