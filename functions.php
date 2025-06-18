@@ -21,6 +21,7 @@ function print_all_available_shops()
   $pagination->setUpperLimit($_GET['current_url']);
   $downlimit = $pagination->countDownLimit();
   $uplimit = $pagination->getUpperLimit();
+  echo $uplimit;
   $sql = "SELECT shop_name FROM shop LIMIT $downlimit,$uplimit";
   $query = mysqli_query($connection->getDbconn(), $sql);
   $id = 0;
