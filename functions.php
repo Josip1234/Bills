@@ -12,15 +12,19 @@ function print_all_available_shops()
   global $pagination;
   global $connection;
   $connection->connectToDatabase();
-  
+  //get number of records from database
+  $record=$connection->get_num_of_records_from_table("shop");
   //default limit is 10 if we wish to increase it, we could change constant value manually in Pagination class
   //this will be used at the start we need to check if current url is zero
   //if current url is greater than zero set dynamic limit else use constant limit
   $pagination->setCurrentUrl($_GET['current_url']);
   $pagination->setPreviousUrl($_GET['current_url']);
   $pagination->setUpperLimit($_GET['current_url']);
+//*prevent  Undefined array key "page_number" error
+    if (isset($_GET['page_number'])) {
   $pagination->setPageNumber($_GET['page_number']);
   $pagination->setPreviousNumber($_GET['page_number']);
+    }
 
   $downlimit = $pagination->countDownLimit();
   $uplimit = $pagination->getUpperLimit();
@@ -60,9 +64,13 @@ function print_all_available_shops()
     echo "<td><button id='previous' type='button' class='btn btn-light' onclick='set_url_value(" . $pagination->getPreviousUrl() . ",".$pagination->getPreviousNumber().")'>Previous</button></td>";
   }
    echo "<td id='display'>" . $pagination->getPageNumber(). "</td>";
-//we need to query from database how much records does it have to check if next is greather than maximal data 
+//we need to query from database how much records does it have to check if current url is greather than maximal data 
 //check will be like as previous to disable next if there is no data anymore available
+if($pagination->getCurrentUrl()>$record){
+  echo "<td><button id='next' type='button' class='btn btn-light disabled' aria-disabled='true'>Next</button></td>";
+}else{
   echo "<td><button id='next' type='button' class='btn btn-light'  onclick='set_url_value(" . $pagination->getNextUrl() . ",".$pagination->getPageNumber().")'>Next</button></td>";
+}
   echo "</tr>";
   echo "</tfoot>";
   echo "</table>";
@@ -126,7 +134,7 @@ function insert_new_shop()
   $connection->connectToDatabase();
   echo "<form action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' method='post'>
   <div class='input-group mb-3'> 
-  <input type='text' class='form-control border border-primary' aria-label='Default' aria-describedby='inputGroup-sizing-default' name='shop_name' id='shop_name' autocomplete='off' size='50' maxlength='255' value='" . $shop1->get_shop_name() . "'>
+  <input type='text' class='form-control border border-primary' aria-label='Default' aria-describedby='inputGroup-sizing-default' name='shop_name' id='shop_name' autocomplete='off' size='50' maxlength='255' value='" . $shop1->get_shop_name() . "' placeholder='Enter shop name' required>
     <div class='input-group-append'>
      <input type='submit' value='Insert new shop' class='btn btn-light' id='ns'>
   </div>

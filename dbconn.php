@@ -6,6 +6,7 @@ class DatabaseConnection{
     private $db;
     private $charset;
     public $dbconn;
+    private $num_of_records;
 
 
     function __construct($host,$user,$pass,$db,$charset)
@@ -18,7 +19,7 @@ class DatabaseConnection{
     }
 
 
-    public function setDbconn( $dbconn): void {$this->dbconn = $dbconn;}
+    public function setDbconn( $dbconn) {$this->dbconn = $dbconn;}
 
     function connectToDatabase(){
            $dbconn=mysqli_connect($this->host,$this->user,$this->pass,$this->db);
@@ -37,20 +38,34 @@ class DatabaseConnection{
 
 	public function getDbconn() {return $this->dbconn;}
 
-	public function setHost( $host): void {$this->host = $host;}
+	public function setHost( $host) {$this->host = $host;}
 
-	public function setUser( $user): void {$this->user = $user;}
+	public function setUser( $user) {$this->user = $user;}
 
-	public function setPass( $pass): void {$this->pass = $pass;}
+	public function setPass( $pass) {$this->pass = $pass;}
 
-	public function setDb( $db): void {$this->db = $db;}
+	public function setDb( $db) {$this->db = $db;}
 
-	public function setCharset( $charset): void {$this->charset = $charset;}
+	public function setCharset( $charset) {$this->charset = $charset;}
+
+    public function setNumOfRecords($num_of_records){
+        $this->num_of_records=$num_of_records;
+    }
+    public function getNumOfRecords(){
+        return $this->num_of_records;
+    }
 	
     public function close_database(){
         mysqli_close($this->dbconn);
     }
 
+    public function get_num_of_records_from_table($table){
+        $query="SELECT COUNT(*) FROM $table";
+        $execute_query=mysqli_query($this->getDbconn(),$query);
+        $result=$execute_query->fetch_column();
+        $this->setNumOfRecords($result);
+        return $this->num_of_records;
+    }
 	
 
 }
