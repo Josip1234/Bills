@@ -3,7 +3,7 @@ include("shop_details.php");
 include("validation_message.php");
 include("pagination.php");
 $connection = new DatabaseConnection("localhost", "root", "", "bills", "utf8");
-$pagination = new Pagination("yes", "yes", 0, 0, 0, 1);
+$pagination = new Pagination("yes", "yes", 0, 0, 0, 0,0);
 
 
 //function to print all shops from database
@@ -19,6 +19,9 @@ function print_all_available_shops()
   $pagination->setCurrentUrl($_GET['current_url']);
   $pagination->setPreviousUrl($_GET['current_url']);
   $pagination->setUpperLimit($_GET['current_url']);
+  $pagination->setPageNumber($_GET['page_number']);
+  $pagination->setPreviousNumber($_GET['page_number']);
+
   $downlimit = $pagination->countDownLimit();
   $uplimit = $pagination->getUpperLimit();
   //this should be changed to prepare statements
@@ -51,16 +54,15 @@ function print_all_available_shops()
   }
   //if previous is less than 0 then user cannot click on him
   //set previous button to disabled
-  if ($pagination->getPreviousUrl() < 0) {
+  if ($pagination->getPreviousUrl() < 10) {
     echo "<td><button id='previous' type='button' class='btn btn-light disabled' aria-disabled='true'>Previous</button></td>";
   } else {
-    echo "<td><button id='previous' type='button' class='btn btn-light' onclick='set_url_value(" . $pagination->getPreviousUrl() . ")'>Previous</button></td>";
+    echo "<td><button id='previous' type='button' class='btn btn-light' onclick='set_url_value(" . $pagination->getPreviousUrl() . ",".$pagination->getPreviousNumber().")'>Previous</button></td>";
   }
-
-  echo "<td>" . "<span id='display'></span>" . "</td>";
+   echo "<td id='display'>" . $pagination->getPageNumber(). "</td>";
 //we need to query from database how much records does it have to check if next is greather than maximal data 
 //check will be like as previous to disable next if there is no data anymore available
-  echo "<td><button id='next' type='button' class='btn btn-light'  onclick='set_url_value(" . $pagination->getNextUrl() . ")'>Next</button></td>";
+  echo "<td><button id='next' type='button' class='btn btn-light'  onclick='set_url_value(" . $pagination->getNextUrl() . ",".$pagination->getPageNumber().")'>Next</button></td>";
   echo "</tr>";
   echo "</tfoot>";
   echo "</table>";

@@ -15,10 +15,11 @@ private $previous_url;
 private $current_url;
 private $next_url;
 private $page_number;
+private $previous_page_num;
 private $upper_limit;
 private $down_limit;
 
-public function __construct( $disable_previous,  $disable_next,  $previous_url,  $current_url,  $next_url,$page_number){$this->disable_previous = $disable_previous;$this->disable_next = $disable_next;$this->previous_url = $previous_url;$this->current_url = $current_url;$this->next_url = $next_url;$this->page_number=$page_number;}
+public function __construct( $disable_previous,  $disable_next,  $previous_url,  $current_url,  $next_url,$page_number,$previous_page_num){$this->disable_previous = $disable_previous;$this->disable_next = $disable_next;$this->previous_url = $previous_url;$this->current_url = $current_url;$this->next_url = $next_url;$this->page_number=$page_number;$this->previous_page_num=$previous_page_num;}
 	public function getDisablePrevious() {return $this->disable_previous;}
 
 	public function getDisableNext() {return $this->disable_next;}
@@ -43,6 +44,8 @@ public function __construct( $disable_previous,  $disable_next,  $previous_url, 
 
 	public function setPageNumber( $page_number){$this->page_number = $page_number+1;}
 
+	public function setPreviousNumber( $previous_page_num){$this->previous_page_num = $previous_page_num-1;}
+
 	public function getUpperLimit() {return $this->upper_limit;}
 
 	public function getDownLimit() {return $this->down_limit;}
@@ -50,6 +53,8 @@ public function __construct( $disable_previous,  $disable_next,  $previous_url, 
 	public function setUpperLimit( $upper_limit){$this->upper_limit = $upper_limit;}
 
 	public function setDownLimit() {return $this->down_limit;}
+
+	public function getPreviousNumber() {return $this->previous_page_num;}
 	
 	//limit for pagination will count like this
 	//if current url is equal to zero, down limit will be 1
