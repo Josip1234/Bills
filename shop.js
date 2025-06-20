@@ -27,13 +27,3 @@ function set_url_value(value,page_num) {
 
 }
 
-function countClick(){
-    var count=0;
-    var btn=document.getElementById("next");
-    var display=document.getElementById("display");
-
-    btn.onclick=function(){
-        count++;
-        display.innerHTML=count;
-    }
-}
