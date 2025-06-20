@@ -61,8 +61,10 @@
   <div class="row">
         <div class="col">
           <p id="results"><?php
-          if(isset($_COOKIE["result"])){
+          if(isset($_COOKIE["result"])&&(isset($_COOKIE["search"]))){
 echo $_COOKIE["result"]; setcookie("result", "", time() - 3600);
+echo "<br>";
+echo $_COOKIE["search"]; setcookie("result", "", time() - 3600);
           }
 ?>
           </p>
