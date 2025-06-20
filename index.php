@@ -50,6 +50,11 @@
 
     </div>
   </div>
+  <div class="row">
+        <div class="col">
+          <p id="results"></p>
+        </div>
+  </div>
 </div>
 </body>
 </html>
