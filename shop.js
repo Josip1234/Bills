@@ -32,5 +32,6 @@ function search_values(){
     var cookie="result="+val;
     document.cookie=cookie;
     $result=val;
-    //document.getElementById("results").innerHTML=$result;
+    location.reload();
+    //document.getElementById("results").innerHTML='<p id="results"></p>';
 }

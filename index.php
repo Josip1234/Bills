@@ -52,7 +52,12 @@
   </div>
   <div class="row">
         <div class="col">
-          <p id="results"></p>
+          <p id="results"><?php
+          if(isset($_COOKIE["result"])){
+echo $_COOKIE["result"]; setcookie("result", "", time() - 3600);
+          }
+?>
+          </p>
         </div>
   </div>
 </div>
