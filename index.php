@@ -15,7 +15,7 @@
     <div class="col">
     <div class="input-group flex-nowrap">
   <span class="input-group-text" id="addon-wrapping">Search</span>
-  <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="addon-wrapping">
+  <input type="text" id="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="addon-wrapping">
 </div>
     </div>
   </div>
