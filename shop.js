@@ -27,3 +27,7 @@ function set_url_value(value,page_num) {
 
 }
 
+function search_values(){
+    var val=document.getElementById("search").value;
+alert(val);
+}
