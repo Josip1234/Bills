@@ -29,14 +29,19 @@ function print_all_available_shops()
   $downlimit = $pagination->countDownLimit();
   $uplimit = $pagination->getUpperLimit();
   //this should be changed to prepare statements
-  $sql = "SELECT shop_name FROM shop LIMIT $downlimit,$uplimit";
-  $query = mysqli_query($connection->getDbconn(), $sql);
+  //$sql = "SELECT shop_name FROM shop LIMIT $downlimit,$uplimit";
+  //$query = mysqli_query($connection->getDbconn(), $sql);
+  $sql="SELECT shop_name FROM shop LIMIT ?,?";
+  $stat=$connection->getDbconn()->prepare($sql);
+  $stat->bind_param("ii",$downlimit,$uplimit);
+  $stat->execute();
+  $result=$stat->get_result();
   $id = 0;
   echo "<h2>Lista upisanih trgovina</h2>";
   echo "<table class='table table-striped'>";
   echo "<thead><tr><th scope='col'>Redni broj</th><th scope='col'>Naziv trgovine</th><th>#</th></tr></thead>";
   echo "<tbody>";
-  while ($res = mysqli_fetch_array($query)) {
+  while ($res = mysqli_fetch_array($result)) {
     echo "<tr>";
     $id++;
     $shop = new Shop($res['shop_name']);
