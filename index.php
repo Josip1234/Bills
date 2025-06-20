@@ -21,6 +21,14 @@
     </div>
   </div>
   <div class="row">
+      <div class="col">
+  <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="shop" id="shop" value="shop" checked>
+  <label class="form-check-label" for="shop">Search shops</label>
+</div>
+      </div>
+  </div>
+  <div class="row">
     <div class="col">
       <a href="insert_new_bill.php" target="_self" rel="noopener noreferrer" class="btn btn-link disabled">Insert new bill</a>
       
