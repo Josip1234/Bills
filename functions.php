@@ -226,3 +226,39 @@ function validate_data($what_data_to_validate, $data)
 
   return $passed;
 }
+
+function print_search_data_from_table($what_data,$what_table){
+  $data=array();
+  $cleaned_data="";
+  global $connection;
+  $connection->connectToDatabase();
+
+  if($what_table=="shop"){
+    $data[]=$what_data;
+    $data=clean_data($data);
+    $cleaned_data=$data[0]."%";
+//select everything which is starting from input value
+  $sql="SELECT * FROM $what_table WHERE shop_name LIKE ?";
+  $stat=$connection->getDbconn()->prepare($sql);
+  $stat->bind_param("s",$cleaned_data);
+  $stat->execute();
+  $result=$stat->get_result();
+    echo "<h2>Rezultati pretraživanja</h2>";
+  echo "<table class='table table-striped'>";
+  echo "<thead><tr><th scope='col'>Naziv trgovine</th><th>#</th></tr></thead>";
+  echo "<tbody>";
+  while ($res = mysqli_fetch_array($result)) {
+    echo "<tr>";
+    $shop = new Shop($res['shop_name']);
+    echo "<td id='" . $shop->get_shop_name() . "'>" . $shop->get_shop_name() . "</td>";
+    echo "<td><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='showShopDetails(this.id)'>Detalji</button></td>";
+    echo "</tr>";
+  }
+  echo "<tbody>";
+  echo "</table>";
+   $connection->close_database();
+  }else{
+     $connection->close_database();
+  }
+ 
+}

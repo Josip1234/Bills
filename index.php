@@ -61,10 +61,12 @@
   <div class="row">
         <div class="col">
           <p id="results"><?php
+          include("functions.php");
           if(isset($_COOKIE["result"])&&(isset($_COOKIE["search"]))){
-echo $_COOKIE["result"]; setcookie("result", "", time() - 3600);
-echo "<br>";
-echo $_COOKIE["search"]; setcookie("result", "", time() - 3600);
+            print_search_data_from_table($_COOKIE["result"],$_COOKIE["search"]);
+$_COOKIE["result"]; setcookie("result", "", time() - 3600);
+$_COOKIE["search"]; setcookie("result", "", time() - 3600);
+
           }
 ?>
           </p>
