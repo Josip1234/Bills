@@ -47,7 +47,7 @@ function print_all_available_shops()
     $shop = new Shop($res['shop_name']);
     echo "<td>" . $id . "</td>";
     echo "<td id='" . $shop->get_shop_name() . "'>" . $shop->get_shop_name() . "</td>";
-    echo "<td><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='showShopDetails(this.id)'>Detalji</button></td>";
+    echo "<td><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='showShopDetails(this.id)'>Detalji</button><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='updateShopName(this.id)'>Ažuriraj</button></td>";
     echo "</tr>";
   }
   echo "<tbody>";
@@ -287,4 +287,10 @@ function print_checkboxes(){
 echo "</div>";
       echo "</div>";
   echo "</div>";
+}
+
+function update_shop_name(){
+  if(isset($_GET["shop_name"])){
+    echo $_GET["shop_name"];
+  }
 }
