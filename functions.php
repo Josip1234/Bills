@@ -262,3 +262,29 @@ function print_search_data_from_table($what_data,$what_table){
   }
  
 }
+function print_search_form(){
+   echo "<div class='row'>";
+  echo  "<div class='col'>";
+  echo  "<div class='input-group flex-nowrap'>";
+  echo"<span class='input-group-text' id='addon-wrapping'>Search</span>";
+  echo"<input type='text' id='search' class='form-control' placeholder='Search' aria-label='Search' aria-describedby='addon-wrapping' onchange='search_values()'>";
+echo"</div>";
+    echo"</div>";
+  echo"</div>";
+}
+
+function delete_cookies(){
+  $_COOKIE["result"]; setcookie("result", "", time() - 3600);
+$_COOKIE["search"]; setcookie("result", "", time() - 3600);
+}
+
+function print_checkboxes(){
+    echo"<div class='row'>";
+     echo" <div class='col'>";
+  echo "<div class='form-check form-check-inline'>";
+  echo "<input class='form-check-input' type='radio' name='shop' id='shop' value='shop' checked>";
+  echo "<label class='form-check-label' for='shop'>Search shops</label>";
+echo "</div>";
+      echo "</div>";
+  echo "</div>";
+}

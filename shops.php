@@ -13,25 +13,35 @@
 </head>
 <body>
 <div class="container text-center">
-<div class="row">
-    <div class="col">
-    <div class="input-group flex-nowrap">
-  <span class="input-group-text" id="addon-wrapping">Search</span>
-  <input type="text" id="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="addon-wrapping">
-</div>
-    </div>
-  </div>
+   <?php 
+ include("functions.php");
+print_search_form();
+print_checkboxes();
+?>
   <div class="row">
     <div class="col">
       <a href="index.php" target="_self" rel="noopener noreferrer">Back to main page</a>
       <a href="insert_new_shop.php" target="_blank" rel="noopener noreferrer">Add new shop</a>
     </div>
   </div>
+    <div class="row">
+        <div class="col">
+          <p id="results"><?php
+          
+          if(isset($_COOKIE["result"])&&(isset($_COOKIE["search"]))){
+            print_search_data_from_table($_COOKIE["result"],$_COOKIE["search"]);
+            delete_cookies();
+
+          }
+?>
+          </p>
+        </div>
+  </div>
 
 <div class="row">
 <div class="col">
     <?php 
-include("functions.php");
+
 print_all_available_shops();
 ?>
 </div>

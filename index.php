@@ -12,22 +12,12 @@
 </head>
 <body>
 <div class="container text-center">
-  <div class="row">
-    <div class="col">
-    <div class="input-group flex-nowrap">
-  <span class="input-group-text" id="addon-wrapping">Search</span>
-  <input type="text" id="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="addon-wrapping" onchange="search_values()">
-</div>
-    </div>
-  </div>
-  <div class="row">
-      <div class="col">
-  <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="shop" id="shop" value="shop" checked>
-  <label class="form-check-label" for="shop">Search shops</label>
-</div>
-      </div>
-  </div>
+ <?php  
+ include("functions.php");
+print_search_form();
+print_checkboxes();
+?>
+
   <div class="row">
     <div class="col">
       <a href="insert_new_bill.php" target="_self" rel="noopener noreferrer" class="btn btn-link disabled">Insert new bill</a>
@@ -61,11 +51,10 @@
   <div class="row">
         <div class="col">
           <p id="results"><?php
-          include("functions.php");
+          
           if(isset($_COOKIE["result"])&&(isset($_COOKIE["search"]))){
             print_search_data_from_table($_COOKIE["result"],$_COOKIE["search"]);
-$_COOKIE["result"]; setcookie("result", "", time() - 3600);
-$_COOKIE["search"]; setcookie("result", "", time() - 3600);
+            delete_cookies();
 
           }
 ?>
