@@ -185,7 +185,7 @@ function validate_data($what_data_to_validate, $data)
     } else if ($result == 0) {
       $passed = 1;
     } else {
-      die("Invalid data.");
+      die(Validation::INVALID);
       $passed = 0;
     }
   }
