@@ -290,7 +290,16 @@ echo "</div>";
 }
 
 function update_shop_name(){
+  $shop2=new Shop("");
   if(isset($_GET["shop_name"])){
-    echo $_GET["shop_name"];
+    $shop2->set_shop_name($_GET["shop_name"]);
   }
+  echo "<form action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' method='post'>
+  <div class='input-group mb-3'> 
+  <input type='text' class='form-control border border-primary' aria-label='Default' aria-describedby='inputGroup-sizing-default' name='shop_name' id='shop_name' autocomplete='off' size='50' maxlength='255' value='" . $shop2->get_shop_name() . "' placeholder='Update shop name' required>
+    <div class='input-group-append'>
+     <input type='submit' value='Ažuriraj naziv trgovine' class='btn btn-light' id='ns'>
+  </div>
+</div>
+</form>";
 }
