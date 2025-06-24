@@ -2,6 +2,8 @@
 include("shop_details.php");
 include("validation_message.php");
 include("pagination.php");
+include("cnst_vals.php");
+
 $connection = new DatabaseConnection("localhost", "root", "", "bills", "utf8");
 $pagination = new Pagination("yes", "yes", 0, 0, 0, 0,0);
 
@@ -145,43 +147,8 @@ function insert_new_shop()
   </div>
 </div>
 </form>";
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST['shop_name'])) {
-      echo "Error!!! The record you wanted to insert is empty. Please, enter non-empty entry.";
-    } else {
-      $shop = new Shop("");
-      $shop->set_shop_name($_POST['shop_name']);
-      $sn = $shop->get_shop_name();
-      //add shop name to array to use clean data function to clean and trim data as security feature
-      $shop_array = array();
-      $shop_array[] = $sn;
-      //number of data will be known since we will process post data 
-      //number of post data is equal number of fields in html form written by programmer
-      $shop_array = clean_data($shop_array);
-      //we will set new object to recieve clean data
-      $shop->set_shop_name($shop_array[0]);
-      //after that validation will be made
-      $validation = validate_data("shop_name", $shop->get_shop_name());
-      //if validation has passed insert record into database
-      //in any other case display error
+process_form(CNST_VAL::FORM_SHOP_NAME,CNST_VAL::INSERT_SHOP_OPERATION);
 
-      if ($validation == 1) {
-        $sn = $shop->get_shop_name();
-        //$query="INSERT INTO `shop` (`shop_name`) VALUES ('$sn')";
-        $statement = $connection->getDbconn()->prepare("INSERT INTO shop (shop_name) VALUES (?)");
-        $statement->bind_param('s', $sn);
-        $statement->execute();
-        $statement->close();
-        $connection->close_database();
-          echo "Successfully inserted new record.";
-      } else if ($validation == 0) {
-        echo Validation::SHOP_ALREADY_EXISTS;
-        $connection->close_database();
-      } else {
-        echo "Invalid value";
-      }
-    }
-  }
 }
 //function for trimming, strip_slashes and htmlspecialchar
 //will use array structure since we will use this as multiple cleaning data.
@@ -302,4 +269,55 @@ function update_shop_name(){
   </div>
 </div>
 </form>";
+process_form(CNST_VAL::FORM_SHOP_NAME,CNST_VAL::UPDATE_SHOP_OPERATION);
+}
+
+function process_form($form_name,$operation){
+  global $connection;
+  //if form name is shop
+  if($form_name==CNST_VAL::FORM_SHOP_NAME){
+      if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST['shop_name'])) {
+      echo "Error!!! The record you wanted to insert is empty. Please, enter non-empty entry.";
+    } else {
+      $shop = new Shop("");
+      $shop->set_shop_name($_POST['shop_name']);
+      $sn = $shop->get_shop_name();
+      //add shop name to array to use clean data function to clean and trim data as security feature
+      $shop_array = array();
+      $shop_array[] = $sn;
+      //number of data will be known since we will process post data 
+      //number of post data is equal number of fields in html form written by programmer
+      $shop_array = clean_data($shop_array);
+      //we will set new object to recieve clean data
+      $shop->set_shop_name($shop_array[0]);
+      //after that validation will be made
+      $validation = validate_data("shop_name", $shop->get_shop_name());
+      //if validation has passed insert record into database
+      //in any other case display error
+
+      if ($validation == 1) {
+        $sn = $shop->get_shop_name();
+        //$query="INSERT INTO `shop` (`shop_name`) VALUES ('$sn')";
+        //this part will be reusable for shops if operation name is insert new shop then insert new shop 
+        //prepare statement and close database.
+        if($operation==CNST_VAL::INSERT_SHOP_OPERATION){
+        $statement = $connection->getDbconn()->prepare("INSERT INTO shop (shop_name) VALUES (?)");
+        $statement->bind_param('s', $sn);
+        $statement->execute();
+        $statement->close();
+        $connection->close_database();
+          echo "Successfully inserted new record.";
+        }else if($operation==CNST_VAL::UPDATE_SHOP_OPERATION){
+          echo "Process data here.";
+        }
+      } else if ($validation == 0) {
+        echo Validation::SHOP_ALREADY_EXISTS;
+        $connection->close_database();
+      } else {
+        echo "Invalid value";
+      }
+    }
+  }
+  }
 }

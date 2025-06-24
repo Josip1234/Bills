@@ -37,7 +37,7 @@ function set_url_value(value,page_num) {
 
 function search_values(){
     var val=document.getElementById("search").value;
-      alert(val);
+      
     var what_to_search=document.getElementById("shop").value;
     var cookie2="search="+what_to_search;
     var cookie="result="+val;
