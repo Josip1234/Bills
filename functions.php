@@ -7,7 +7,6 @@ include("cnst_vals.php");
 $connection = new DatabaseConnection("localhost", "root", "", "bills", "utf8");
 $pagination = new Pagination("yes", "yes", 0, 0, 0, 0,0);
 
-
 //function to print all shops from database
 function print_all_available_shops()
 {
@@ -264,6 +263,7 @@ function update_shop_name(){
   echo "<form action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' method='post'>
   <div class='input-group mb-3'> 
   <input type='text' class='form-control border border-primary' aria-label='Default' aria-describedby='inputGroup-sizing-default' name='shop_name' id='shop_name' autocomplete='off' size='50' maxlength='255' value='" . $shop2->get_shop_name() . "' placeholder='Update shop name' required>
+  <input type='hidden' name='previous_shop' value='".$shop2->get_shop_name()."'>
     <div class='input-group-append'>
      <input type='submit' value='Ažuriraj naziv trgovine' class='btn btn-light' id='ns'>
   </div>
@@ -277,6 +277,7 @@ function process_form($form_name,$operation){
   //if form name is shop
   if($form_name==CNST_VAL::FORM_SHOP_NAME){
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $ps=$_POST['previous_shop'];
     if (empty($_POST['shop_name'])) {
       echo "Error!!! The record you wanted to insert is empty. Please, enter non-empty entry.";
     } else {
@@ -304,18 +305,36 @@ function process_form($form_name,$operation){
         if($operation==CNST_VAL::INSERT_SHOP_OPERATION){
         $statement = $connection->getDbconn()->prepare("INSERT INTO shop (shop_name) VALUES (?)");
         $statement->bind_param('s', $sn);
-        $statement->execute();
+        //$statement->execute(); we have an error duplicate entry
+           if($statement->execute()){
+            echo Validation::SUCCESSFULL_INSERT;
+             $connection->close_database();
+          }else{
+            echo Validation::INSERT_FAILED;
+             $connection->close_database();
+          }
         $statement->close();
-        $connection->close_database();
-          echo "Successfully inserted new record.";
+          
         }else if($operation==CNST_VAL::UPDATE_SHOP_OPERATION){
-          echo "Process data here.";
+          //get shop name from url
+          //that shop is being updated
+          $query="UPDATE shop SET shop_name=? WHERE shop_name=?";
+          $statement=$connection->getDbconn()->prepare($query);
+          $shop_n=$shop->get_shop_name();
+          $statement->bind_param('ss',$shop_n, $ps);
+          if($statement->execute()){
+            echo VALIDATION::SUCCESS_UPDATE;
+             $statement->close();
+          }else{
+            echo Validation::UPDATE_FAIL;
+            $statement->close();
+          }
         }
       } else if ($validation == 0) {
         echo Validation::SHOP_ALREADY_EXISTS;
         $connection->close_database();
       } else {
-        echo "Invalid value";
+        echo Validation::INVALID;
       }
     }
   }
