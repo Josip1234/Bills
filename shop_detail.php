@@ -32,8 +32,11 @@
 <div class="col">
     <?php 
 include("functions.php");
+if(isset($_GET['shop_name'])){
  print_shop_details($_GET['shop_name']);
-
+}else{
+  print_navigation();
+}
 ?>
 </div>
 </div>

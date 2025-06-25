@@ -16,7 +16,10 @@
         <div class="row">
             <?php 
              include("functions.php");
-             delete_shop();
+       
+                delete_shop();
+             
+          
             ?>
         </div>
     </div>

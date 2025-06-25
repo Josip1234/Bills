@@ -23,7 +23,8 @@
             <div class="col">
                 <?php
                 include("functions.php");
-                 echo update_shop_name(); ?>
+                 update_shop_name();
+              ?>
             </div>
         </div>
     </div>

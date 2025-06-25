@@ -10,6 +10,7 @@ $pagination = new Pagination("yes", "yes", 0, 0, 0, 0,0);
 //function to print all shops from database
 function print_all_available_shops()
 {
+  if(isset($_GET['current_url']) && isset($_GET['page_number'])){
   global $pagination;
   global $connection;
   $connection->connectToDatabase();
@@ -81,10 +82,13 @@ if($pagination->getCurrentUrl()>$record){
   echo "</tfoot>";
   echo "</table>";
   $connection->close_database();
-  
+}else{
+  print_navigation();
+}
 }
 function print_shop_details($shop_name)
 {
+  if(isset($_GET['shop_name'])){
   include("shop_logo.php");
   global $connection;
   $shop = new Shop($shop_name);
@@ -124,6 +128,9 @@ function print_shop_details($shop_name)
   echo "<tbody>";
   echo "</table>";
   $connection->close_database();
+}else{
+  print_navigation();
+}
 }
 
 function insert_new_shop()
@@ -256,7 +263,7 @@ echo "</div>";
   echo "</div>";
 }
 
-function update_shop_name(){
+function update_shop_name(){  
   $shop2=new Shop("");
   if(isset($_GET["shop_name"])){
     $shop2->set_shop_name($_GET["shop_name"]);
@@ -271,14 +278,16 @@ function update_shop_name(){
 </div>
 </form>";
 process_form(CNST_VAL::FORM_SHOP_NAME,CNST_VAL::UPDATE_SHOP_OPERATION);
+  
 }
 
 function process_form($form_name,$operation){
   global $connection;
+  $connection->connectToDatabase();
   //if form name is shop
+ 
   if($form_name==CNST_VAL::FORM_SHOP_NAME){
     if($operation==CNST_VAL::DELETE_SHOP){
-                      $connection->connectToDatabase();
                       if ($_SERVER["REQUEST_METHOD"] == "POST") {
                          $previous_shop=new Shop($_POST['previous_shop']);
                         $query="DELETE FROM shop WHERE shop_name=?";
@@ -337,7 +346,7 @@ function process_form($form_name,$operation){
         $statement->close();
           
         }else if($operation==CNST_VAL::UPDATE_SHOP_OPERATION){
-          $ps=$_POST['previous_shop'];
+           $ps=$_POST['previous_shop'];
           //get shop name from url
           //that shop is being updated
           $query="UPDATE shop SET shop_name=? WHERE shop_name=?";
