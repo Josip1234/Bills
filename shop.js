@@ -10,6 +10,11 @@ function updateShopName(shop_name) {
     window.open("http://localhost/Bills/update_shop.php?shop_name=" + shop_name);
 }
 
+function deleteShop(shop_name) {
+    //alert(id);
+    var shop_name = shop_name;
+    window.open("http://localhost/Bills/delete_shop.php?shop_name=" + shop_name);
+}
 
 function set_url_value(value,page_num) {
     //get current url location

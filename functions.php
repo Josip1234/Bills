@@ -48,7 +48,7 @@ function print_all_available_shops()
     $shop = new Shop($res['shop_name']);
     echo "<td>" . $id . "</td>";
     echo "<td id='" . $shop->get_shop_name() . "'>" . $shop->get_shop_name() . "</td>";
-    echo "<td><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='showShopDetails(this.id)'>Detalji</button><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='updateShopName(this.id)'>Ažuriraj</button></td>";
+    echo "<td><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='showShopDetails(this.id)'>Detalji</button><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='updateShopName(this.id)'>Ažuriraj</button><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='deleteShop(this.id)'>Izbriši</button></td>";
     echo "</tr>";
   }
   echo "<tbody>";
@@ -217,7 +217,8 @@ function print_search_data_from_table($what_data,$what_table){
     echo "<tr>";
     $shop = new Shop($res['shop_name']);
     echo "<td id='" . $shop->get_shop_name() . "'>" . $shop->get_shop_name() . "</td>";
-    echo "<td><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='showShopDetails(this.id)'>Detalji</button></td>";
+        echo "<td><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='showShopDetails(this.id)'>Detalji</button><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='updateShopName(this.id)'>Ažuriraj</button><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='deleteShop(this.id)'>Izbriši</button></td>";
+
     echo "</tr>";
   }
   echo "<tbody>";
@@ -276,6 +277,13 @@ function process_form($form_name,$operation){
   global $connection;
   //if form name is shop
   if($form_name==CNST_VAL::FORM_SHOP_NAME){
+    if($operation==CNST_VAL::DELETE_SHOP){
+                      
+                      if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                         
+                      }
+                
+    }else{
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $ps=$_POST['previous_shop'];
     if (empty($_POST['shop_name'])) {
@@ -339,4 +347,36 @@ function process_form($form_name,$operation){
     }
   }
   }
+}
+}
+
+function delete_shop(){
+  //if there is any value in url from get 
+  //else print navigation for user to get back to hompage or index
+   if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $shop2=new Shop($_GET['shop_name']);
+  echo "<h2>".CNST_VAL::RECORD_DELETION."</h2>";
+  echo "<form action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' method='post'>
+  <div class='input-group mb-3'> 
+    <input type='hidden' name='previous_shop' value='".$shop2->get_shop_name()."'>
+    <div class='input-group-append'>
+     <input type='submit' value='Izbriši zapis' class='btn btn-light' id='ns'>
+  </div>
+</div>
+</form>";
+process_form(CNST_VAL::FORM_SHOP_NAME,CNST_VAL::DELETE_SHOP);
+   }else{
+     print_navigation_if_get_not_successfull();
+   }
+}
+
+function print_navigation_if_get_not_successfull(){
+echo "<div class='row'>
+    <div class='col'>
+      <a href='index.php' target='_self' rel='noopener noreferrer' class='btn btn-link'>Return to homepage</a>
+    </div>
+    <div class='col'>
+      <a href='shops.php?current_url=10&page_number=0' target='_self' rel='noopener noreferrer' class='btn btn-link'> Return to shops</a>
+    </div>
+ </div>";
 }
