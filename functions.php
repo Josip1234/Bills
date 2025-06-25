@@ -278,9 +278,22 @@ function process_form($form_name,$operation){
   //if form name is shop
   if($form_name==CNST_VAL::FORM_SHOP_NAME){
     if($operation==CNST_VAL::DELETE_SHOP){
-                      
+                      $connection->connectToDatabase();
                       if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                         
+                         $previous_shop=new Shop($_POST['previous_shop']);
+                        $query="DELETE FROM shop WHERE shop_name=?";
+                        $stat=$connection->getDbconn()->prepare($query);
+                        $get_shop_name=$previous_shop->get_shop_name();
+                        $stat->bind_param("s",$get_shop_name);
+                        if($stat->execute()){
+                          echo CNST_VAL::DELETION_SUCCESSFULL;
+                          print_navigation();
+                          $stat->close();
+                        }else{
+                          echo CNST_VAL::DELETION_FAIL;
+                          $stat->close();
+                        }
+
                       }
                 
     }else{
@@ -364,13 +377,15 @@ function delete_shop(){
   </div>
 </div>
 </form>";
-process_form(CNST_VAL::FORM_SHOP_NAME,CNST_VAL::DELETE_SHOP);
+
+   }else if($_SERVER["REQUEST_METHOD"] == "POST") {
+           process_form(CNST_VAL::FORM_SHOP_NAME,CNST_VAL::DELETE_SHOP);
    }else{
-     print_navigation_if_get_not_successfull();
+     print_navigation();
    }
 }
 
-function print_navigation_if_get_not_successfull(){
+function print_navigation(){
 echo "<div class='row'>
     <div class='col'>
       <a href='index.php' target='_self' rel='noopener noreferrer' class='btn btn-link'>Return to homepage</a>
