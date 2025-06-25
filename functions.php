@@ -298,7 +298,7 @@ function process_form($form_name,$operation){
                 
     }else{
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $ps=$_POST['previous_shop'];
+        
     if (empty($_POST['shop_name'])) {
       echo "Error!!! The record you wanted to insert is empty. Please, enter non-empty entry.";
     } else {
@@ -337,6 +337,7 @@ function process_form($form_name,$operation){
         $statement->close();
           
         }else if($operation==CNST_VAL::UPDATE_SHOP_OPERATION){
+          $ps=$_POST['previous_shop'];
           //get shop name from url
           //that shop is being updated
           $query="UPDATE shop SET shop_name=? WHERE shop_name=?";
