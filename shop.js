@@ -1,19 +1,19 @@
-function showShopDetails(id) {
-    //alert(id);
-    var shop_name = id;
-    window.open("http://localhost/Bills/shop_detail.php?shop_name=" + shop_name);
-}
 
-function updateShopName(shop_name) {
-    //alert(id);
-    var shop_name = shop_name;
-    window.open("http://localhost/Bills/update_shop.php?shop_name=" + shop_name);
+function CRUDoperations(name,operation,table){
+//operations can be create, update read and delete
+//alert("Read data from this table: "+table);
+//alert("Read values from this shop: "+shop_name);
+//alert("Operation of CRUD is: "+operation);
+var shop_name = name;
+if(table=="shop"){
+if(operation=="read"){
+       window.open("http://localhost/Bills/shop_detail.php?shop_name=" + shop_name);
+    }else if(operation=="update"){
+        window.open("http://localhost/Bills/update_shop.php?shop_name=" + shop_name);
+    }else if(operation=="delete"){
+           window.open("http://localhost/Bills/delete_shop.php?shop_name=" + shop_name);
+    }
 }
-
-function deleteShop(shop_name) {
-    //alert(id);
-    var shop_name = shop_name;
-    window.open("http://localhost/Bills/delete_shop.php?shop_name=" + shop_name);
 }
 
 function set_url_value(value,page_num) {

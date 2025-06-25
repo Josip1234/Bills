@@ -6,6 +6,10 @@ include("cnst_vals.php");
 
 $connection = new DatabaseConnection("localhost", "root", "", "bills", "utf8");
 $pagination = new Pagination("yes", "yes", 0, 0, 0, 0,0);
+$op='"read"';
+$op2='"update"';
+$op3='"delete"';
+$read_shops='"shop"';
 
 //function to print all shops from database
 function print_all_available_shops()
@@ -13,6 +17,11 @@ function print_all_available_shops()
   if(isset($_GET['current_url']) && isset($_GET['page_number'])){
   global $pagination;
   global $connection;
+  global $op;
+  global $op2;
+  global $op3;
+  global $read_shops;
+
   $connection->connectToDatabase();
   //get number of records from database
   $record=$connection->get_num_of_records_from_table("shop");
@@ -49,7 +58,7 @@ function print_all_available_shops()
     $shop = new Shop($res['shop_name']);
     echo "<td>" . $id . "</td>";
     echo "<td id='" . $shop->get_shop_name() . "'>" . $shop->get_shop_name() . "</td>";
-    echo "<td><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='showShopDetails(this.id)'>Detalji</button><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='updateShopName(this.id)'>Ažuriraj</button><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='deleteShop(this.id)'>Izbriši</button></td>";
+    echo "<td><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='CRUDoperations(this.id,".$op.",".$read_shops.")'>Detalji</button><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='CRUDoperations(this.id,".$op2.",".$read_shops.")'>Ažuriraj</button><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='CRUDoperations(this.id,".$op3.",".$read_shops.")'>Izbriši</button></td>";
     echo "</tr>";
   }
   echo "<tbody>";
@@ -201,6 +210,11 @@ function validate_data($what_data_to_validate, $data)
 }
 
 function print_search_data_from_table($what_data,$what_table){
+ global $op;
+  global $op2;
+  global $op3;
+  global $read_shops;
+  
   $data=array();
   $cleaned_data="";
   global $connection;
@@ -224,7 +238,7 @@ function print_search_data_from_table($what_data,$what_table){
     echo "<tr>";
     $shop = new Shop($res['shop_name']);
     echo "<td id='" . $shop->get_shop_name() . "'>" . $shop->get_shop_name() . "</td>";
-        echo "<td><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='showShopDetails(this.id)'>Detalji</button><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='updateShopName(this.id)'>Ažuriraj</button><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='deleteShop(this.id)'>Izbriši</button></td>";
+    echo "<td><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='CRUDoperations(this.id,".$op.",".$read_shops.")'>Detalji</button><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='CRUDoperations(this.id,".$op2.",".$read_shops.")'>Ažuriraj</button><button id='" . $shop->get_shop_name() . "' type='button' class='btn btn-light' onclick='CRUDoperations(this.id,".$op3.",".$read_shops.")'>Izbriši</button></td>";
 
     echo "</tr>";
   }
