@@ -16,8 +16,8 @@
 
   <div class="row">
     <div class="col">
-      <a href="index.php" target="_self" rel="noopener noreferrer">Back to main page</a>
-      <a href="shops.php?current_url=10&page_number=0" target="_self" rel="noopener noreferrer">Show shops</a>
+      <a href="index.php" target="_self" rel="noopener noreferrer" class="text-decoration-none text_primary">Back to main page</a>
+      <a href="shops.php?current_url=10&page_number=0" target="_self" rel="noopener noreferrer" class="text-decoration-none text_primary">Show shops</a>
     </div>
   </div>
 

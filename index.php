@@ -38,7 +38,7 @@ print_checkboxes();
     </div>
     <div class="row">
           <div class="col">
-                  <a href="shops.php?current_url=10&page_number=0" target="_self" rel="noopener noreferrer">Shops</a>
+                  <a href="shops.php?current_url=10&page_number=0" target="_self" rel="noopener noreferrer" class="text-decoration-none text_primary">Shops</a>
           </div>
     </div>
     <div class="row">

@@ -1,11 +1,11 @@
 <?php 
 class Validation{
-    const SHOP_ALREADY_EXISTS="Shop already exists. Please enter different one.";
-    const SUCCESS_UPDATE="Successfully updated record in database";
-    const UPDATE_FAIL="Update failed.";
-    const SUCCESSFULL_INSERT="Successfully inserted new record.";
-    const INVALID="Invalid value.";
-    const INSERT_FAILED="Adding new record to database has failed.";
+    const SHOP_ALREADY_EXISTS="<p class='text-danger'>Shop already exists. Please enter different one.</p>";
+    const SUCCESS_UPDATE="<p class='text-success'>Successfully updated record in database</p>";
+    const UPDATE_FAIL="<p class='text-danger'>Update failed.</p>";
+    const SUCCESSFULL_INSERT="<p class='text-success'>Successfully inserted new record.</p>";
+    const INVALID="<p class='text-danger'>Invalid value.</p>";
+    const INSERT_FAILED="<p class='text-danger'>Adding new record to database has failed.</p>";
 }
 
 ?>

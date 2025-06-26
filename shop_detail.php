@@ -23,7 +23,7 @@
   </div>
   <div class="row">
     <div class="col">
-      <a href="shops.php?current_url=10&page_number=0" target="_blank" rel="noopener noreferrer">Back to list of shops</a>
+      <a href="shops.php?current_url=10&page_number=0" target="_blank" rel="noopener noreferrer" class="text-decoration-none text_primary">Back to list of shops</a>
       
     </div>
   </div>
