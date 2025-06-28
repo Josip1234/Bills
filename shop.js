@@ -39,16 +39,56 @@ function set_url_value(value,page_num) {
     window.location = append;
 
 }
-
+//need to fix if one checkbox is selected other must be disabled
 function search_values(){
     var val=document.getElementById("search").value;
-      
-    var what_to_search=document.getElementById("shop").value;
-    var cookie2="search="+what_to_search;
+    var radio1=document.getElementById("shop");
+    var radio2=document.getElementById("bill_footer");
+    var table_to_search="";
+
+    if(radio1.checked==true){
+         table_to_search="shop";
+    }else if(radio2.checked==true){
+        table_to_search="bill_footer";
+    }
+    if(table_to_search=="shop"){
+    var cookie2="search="+table_to_search;
     var cookie="result="+val;
     document.cookie=cookie;
     document.cookie=cookie2;
     $result=val;
     location.reload();
+    }else if($table_to_search=="bill_footer"){
+    var cookie2="search="+table_to_search;
+    var cookie="result="+val;
+    document.cookie=cookie;
+    document.cookie=cookie2;
+    $result=val;
+    location.reload();
+    }  
+
     //document.getElementById("results").innerHTML='<p id="results"></p>';
 }
+
+function enable_search_engine($what_table_to_search){
+    if($what_table_to_search=="shop"){
+          changeCheckedValuesToFalse("bill_footer");
+          changeCheckedValuesToTrue("shop");
+          document.getElementById("search").disabled=false;
+       
+    }else if($what_table_to_search=="bill_footer"){
+          changeCheckedValuesToFalse("shop");
+          changeCheckedValuesToTrue("bill_footer");
+           document.getElementById("search").disabled=false;
+    }
+}
+
+  function changeCheckedValuesToTrue(id){
+     var radio=document.getElementById(id);
+     radio.checked=true;
+  }
+
+    function changeCheckedValuesToFalse(id){
+      var radio=document.getElementById(id);
+     radio.checked=false;
+  }

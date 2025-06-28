@@ -245,7 +245,10 @@ function print_search_data_from_table($what_data,$what_table){
   echo "<tbody>";
   echo "</table>";
    $connection->close_database();
-  }else{
+  }else if($what_table=="bill_footer"){
+    delete_cookies();
+  }
+  else{
      $connection->close_database();
   }
  
@@ -255,7 +258,7 @@ function print_search_form(){
   echo  "<div class='col'>";
   echo  "<div class='input-group flex-nowrap'>";
   echo"<span class='input-group-text' id='addon-wrapping'>Search</span>";
-  echo"<input type='text' id='search' class='form-control' placeholder='Search' aria-label='Search' aria-describedby='addon-wrapping' onchange='search_values()'>";
+  echo"<input type='text' id='search' class='form-control' placeholder='Search' aria-label='Search' aria-describedby='addon-wrapping' onchange='search_values()' disabled>";
 echo"</div>";
     echo"</div>";
   echo"</div>";
@@ -270,8 +273,12 @@ function print_checkboxes(){
     echo"<div class='row'>";
      echo" <div class='col'>";
   echo "<div class='form-check form-check-inline'>";
-  echo "<input class='form-check-input' type='radio' name='shop' id='shop' value='shop' checked>";
-  echo "<label class='form-check-label' for='shop'>Search shops</label>";
+  echo "<input class='form-check-input' type='radio' name='shop' id='shop' value='shop' onclick='enable_search_engine(this.id)'>";
+    echo "<label class='form-check-label' for='shop'>Search shops</label>";
+echo "</div>";
+echo "<div class='form-check form-check-inline'>";
+  echo "<input class='form-check-input' type='radio' name='bill_footer' id='bill_footer' value='bill_footer' onclick='enable_search_engine(this.id)'>";
+ echo "<label class='form-check-label' for='bill_footer'>Search bills</label>";
 echo "</div>";
       echo "</div>";
   echo "</div>";

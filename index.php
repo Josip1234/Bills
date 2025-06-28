@@ -20,7 +20,7 @@ print_checkboxes();
 
   <div class="row">
     <div class="col">
-      <a href="insert_new_bill.php" target="_self" rel="noopener noreferrer" class="btn btn-link disabled">Insert new bill</a>
+      <a href="bills.php?current_url=10&page_number=0" target="_self" rel="noopener noreferrer" class="btn btn-link">Bills</a>
       
     </div>
     <div class="col">
