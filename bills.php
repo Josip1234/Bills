@@ -17,6 +17,7 @@
  include("functions.php");
 print_search_form();
 print_checkboxes();
+print_navigation();
 ?>
     
         <div class="row">

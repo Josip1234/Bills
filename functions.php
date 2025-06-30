@@ -419,10 +419,13 @@ function delete_shop(){
 function print_navigation(){
 echo "<div class='row'>
     <div class='col'>
-      <a href='index.php' target='_self' rel='noopener noreferrer' class='btn btn-link text-decoration-none text_primary'>Return to homepage</a>
+      <a href='index.php' target='_self' rel='noopener noreferrer' class='btn btn-link text-decoration-none text_primary'>Homepage</a>
     </div>
     <div class='col'>
-      <a href='shops.php?current_url=10&page_number=0' target='_self' rel='noopener noreferrer' class='btn btn-link text-decoration-none text_primary'> Return to shops</a>
+      <a href='shops.php?current_url=10&page_number=0' target='_self' rel='noopener noreferrer' class='btn btn-link text-decoration-none text_primary'>Shops</a>
+    </div>
+    <div class='col'>
+      <a href='bills.php?current_url=10&amp;page_number=0' target='_self' rel='noopener noreferrer' class='btn btn-link text-decoration-none text_primary'>Bills</a>
     </div>
  </div>";
 }
