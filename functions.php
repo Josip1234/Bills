@@ -134,8 +134,9 @@ function print_shop_details($shop_name)
     echo "</tr>";
     $details->setId($id);
   }
-  echo "<tbody>";
+  echo "</tbody>";
   echo "</table>";
+  echo "<p><button type='button' class='btn btn-light'>Unos novog detalja</button>";
   $connection->close_database();
 }else{
   print_navigation();
