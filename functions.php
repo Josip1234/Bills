@@ -10,6 +10,7 @@ $op='"read"';
 $op2='"update"';
 $op3='"delete"';
 $read_shops='"shop"';
+$create_form='"New Shop Detail form"';
 
 //function to print all shops from database
 function print_all_available_shops()
@@ -100,6 +101,7 @@ function print_shop_details($shop_name)
   if(isset($_GET['shop_name'])){
   include("shop_logo.php");
   global $connection;
+   global $create_form;
   $shop = new Shop($shop_name);
   $connection = new DatabaseConnection("localhost", "root", "", "bills", "utf8");
   $connection->connectToDatabase();
@@ -136,7 +138,12 @@ function print_shop_details($shop_name)
   }
   echo "</tbody>";
   echo "</table>";
-  echo "<p><button type='button' class='btn btn-light'>Unos novog detalja</button>";
+  $sn='"'.$details->get_shop_name().'"';
+  echo "<p><form method='post'><button class='btn btn-light' name='innsd'>Unos novog detalja</button></form>";
+
+  if(isset($_POST['innsd'])){
+    echo "Print new php form here";
+  }
   $connection->close_database();
 }else{
   print_navigation();

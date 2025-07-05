@@ -92,3 +92,4 @@ function enable_search_engine($what_table_to_search){
       var radio=document.getElementById(id);
      radio.checked=false;
   }
+
