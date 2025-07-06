@@ -101,7 +101,6 @@ function print_shop_details($shop_name)
   if(isset($_GET['shop_name'])){
   include("shop_logo.php");
   global $connection;
-   global $create_form;
   $shop = new Shop($shop_name);
   $connection = new DatabaseConnection("localhost", "root", "", "bills", "utf8");
   $connection->connectToDatabase();
@@ -138,12 +137,12 @@ function print_shop_details($shop_name)
   }
   echo "</tbody>";
   echo "</table>";
-  $sn='"'.$details->get_shop_name().'"';
+    if(isset($_POST['innsd'])){
+    print_details_form();
+  }
   echo "<p><form method='post'><button class='btn btn-light' name='innsd'>Unos novog detalja</button></form>";
 
-  if(isset($_POST['innsd'])){
-    echo "Print new php form here";
-  }
+
   $connection->close_database();
 }else{
   print_navigation();
@@ -436,4 +435,36 @@ echo "<div class='row'>
       <a href='bills.php?current_url=10&amp;page_number=0' target='_self' rel='noopener noreferrer' class='btn btn-link text-decoration-none text_primary'>Bills</a>
     </div>
  </div>";
+}
+function print_details_form(){
+      echo "   <form action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' method='post'>
+  <div class='row'>
+    <div class='col'>
+    <input type='text' class='form-control' id='address' placeholder='Adresa'>
+    </div>
+  <div class='col'>
+    <input type='text' class='form-control' id='ssn' placeholder='Oib'>
+  </div>
+    <div class='col'>
+    <input type='text' class='form-control' id='shop_number' placeholder='Broj trgovine'>
+  </div>
+   <div class='col'>
+    <input type='text' class='form-control' id='telephone' placeholder='Telefon'>
+  </div>
+ <div class='col'>
+    <input type='text' class='form-control' id='fax' placeholder='Fax'>
+  </div>
+ <div class='col'>
+    <input type='email' class='form-control' id='email' aria-describedby='email' placeholder='Email'>
+  </div>
+   <div class='col'>
+    <input type='text' class='form-control' id='hq_address' placeholder='Adresa sjedišta'>
+  </div>
+  <div class='col'>
+    <input type='text' class='form-control' id='web_page' placeholder='Web adresa'>
+  </div>
+    <div class='col'>
+  <button type='submit' class='btn btn-light'>Pošalji unos</button>
+  </div>
+</form></div>";
 }
