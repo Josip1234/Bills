@@ -339,7 +339,7 @@ function process_form($form_name,$operation){
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
     if (empty($_POST['shop_name'])) {
-      echo "Error!!! The record you wanted to insert is empty. Please, enter non-empty entry.";
+      echo Validation::EMPTY_RECORD;
     } else {
       $shop = new Shop("");
       $shop->set_shop_name($_POST['shop_name']);
@@ -402,6 +402,11 @@ function process_form($form_name,$operation){
   }
 }else if($form_name==CNST_VAL::FORM_SHOP_DET_NAME){
       if($operation==CNST_VAL::INSERT_NEW_SHOP_DET_OPERATION){
+        //if server request is post and has input hidden field value sent because of button unos novog detalja
+          if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['insert_detail'])) {
+if(empty($_GET['shop_name'])||empty($_POST['address'])||empty($_POST['ssn'])||empty($_POST['shop_number'])||empty($_POST['telephone'])){
+     echo Validation::EMPTY_RECORD;
+    }else{
         $shop_detail=new ShopDetails($_GET['shop_name'],$_POST['address'],$_POST['ssn'],$_POST['shop_number'],$_POST['telephone'],$_POST['fax'],$_POST['email'],$_POST['hq_address'],$_POST['web_page']);
         echo $shop_detail->get_shop_name()."<br>";
         echo $shop_detail->getAddress()."<br>";
@@ -411,7 +416,9 @@ function process_form($form_name,$operation){
         echo $shop_detail->getFax()."<br>";
         echo $shop_detail->getHqAddress()."<br>";
         echo $shop_detail->getWebPage()."<br>";
+          }
       }
+    }
 }
 }
 
@@ -482,6 +489,7 @@ $self .= $_GET['shop_name'];
   <div class='col'>
     <input type='text' class='form-control' id='web_page' name='web_page' placeholder='Web adresa'>
   </div>
+  <input type='hidden' name='insert_detail' value='insert_new_detail'>
     <div class='col'>
   <button type='submit' class='btn btn-light'>Pošalji unos</button>
   </div>
