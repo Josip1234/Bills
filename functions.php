@@ -141,7 +141,9 @@ function print_shop_details($shop_name)
     print_details_form();
   }
   echo "<p><form method='post'><button class='btn btn-light' name='innsd'>Unos novog detalja</button></form>";
-
+  if($_SERVER["REQUEST_METHOD"]=="POST"){
+    process_form(CNST_VAL::FORM_SHOP_DET_NAME,CNST_VAL::INSERT_NEW_SHOP_DET_OPERATION);
+  }
 
   $connection->close_database();
 }else{
@@ -398,6 +400,18 @@ function process_form($form_name,$operation){
     }
   }
   }
+}else if($form_name==CNST_VAL::FORM_SHOP_DET_NAME){
+      if($operation==CNST_VAL::INSERT_NEW_SHOP_DET_OPERATION){
+        $shop_detail=new ShopDetails($_GET['shop_name'],$_POST['address'],$_POST['ssn'],$_POST['shop_number'],$_POST['telephone'],$_POST['fax'],$_POST['email'],$_POST['hq_address'],$_POST['web_page']);
+        echo $shop_detail->get_shop_name()."<br>";
+        echo $shop_detail->getAddress()."<br>";
+        echo $shop_detail->getSsn()."<br>";
+        echo $shop_detail->getShopNumber()."<br>";
+        echo $shop_detail->getTelephone()."<br>";
+        echo $shop_detail->getFax()."<br>";
+        echo $shop_detail->getHqAddress()."<br>";
+        echo $shop_detail->getWebPage()."<br>";
+      }
 }
 }
 
@@ -437,31 +451,36 @@ echo "<div class='row'>
  </div>";
 }
 function print_details_form(){
-      echo "   <form action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "' method='post'>
+  $self = $_SERVER['PHP_SELF'];
+if(isset($_GET['shop_name'])){
+$self .="?shop_name=";
+$self .= $_GET['shop_name'];
+}
+      echo "   <form action='" . htmlspecialchars($self) . "' method='post'>
   <div class='row'>
     <div class='col'>
-    <input type='text' class='form-control' id='address' placeholder='Adresa'>
+    <input type='text' class='form-control' id='address' name='address' placeholder='Adresa'>
     </div>
   <div class='col'>
-    <input type='text' class='form-control' id='ssn' placeholder='Oib'>
+    <input type='text' class='form-control' id='ssn' name='ssn' placeholder='Oib'>
   </div>
     <div class='col'>
-    <input type='text' class='form-control' id='shop_number' placeholder='Broj trgovine'>
+    <input type='text' class='form-control' id='shop_number' name='shop_number' placeholder='Broj trgovine'>
   </div>
    <div class='col'>
-    <input type='text' class='form-control' id='telephone' placeholder='Telefon'>
+    <input type='text' class='form-control' id='telephone' name='telephone' placeholder='Telefon'>
   </div>
  <div class='col'>
-    <input type='text' class='form-control' id='fax' placeholder='Fax'>
+    <input type='text' class='form-control' id='fax' name='fax' placeholder='Fax'>
   </div>
  <div class='col'>
-    <input type='email' class='form-control' id='email' aria-describedby='email' placeholder='Email'>
+    <input type='email' class='form-control' id='email' name='email' aria-describedby='email' placeholder='Email'>
   </div>
    <div class='col'>
-    <input type='text' class='form-control' id='hq_address' placeholder='Adresa sjedišta'>
+    <input type='text' class='form-control' id='hq_address' name='hq_address' placeholder='Adresa sjedišta'>
   </div>
   <div class='col'>
-    <input type='text' class='form-control' id='web_page' placeholder='Web adresa'>
+    <input type='text' class='form-control' id='web_page' name='web_page' placeholder='Web adresa'>
   </div>
     <div class='col'>
   <button type='submit' class='btn btn-light'>Pošalji unos</button>

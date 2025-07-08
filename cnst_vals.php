@@ -7,5 +7,7 @@ const RECORD_DELETION="Molimo, potvrdite dali zbilja želite obrisati zapis iz b
 const DELETE_SHOP="delete_shop";
 const DELETION_SUCCESSFULL="<p class='text-success'>Successfully deleted record in database.</p>";
 const DELETION_FAIL="<p class='text-danger'>Record deletion has failed.</p>";
+const FORM_SHOP_DET_NAME="shop_detail";
+const INSERT_NEW_SHOP_DET_OPERATION="insert_new_shop_detail";
 }
 ?>
