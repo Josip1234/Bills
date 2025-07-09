@@ -407,7 +407,7 @@ function process_form($form_name,$operation){
 if(empty($_GET['shop_name'])||empty($_POST['address'])||empty($_POST['ssn'])||empty($_POST['shop_number'])||empty($_POST['telephone'])){
      echo Validation::EMPTY_RECORD;
     }else{
-        $shop_detail=new ShopDetails($_GET['shop_name'],$_POST['address'],$_POST['ssn'],$_POST['shop_number'],$_POST['telephone'],$_POST['fax'],$_POST['email'],$_POST['hq_address'],$_POST['web_page']);
+        $shop_detail=new ShopDetails("",$_GET['shop_name'],$_POST['address'],$_POST['ssn'],$_POST['shop_number'],$_POST['telephone'],$_POST['fax'],$_POST['email'],$_POST['hq_address'],$_POST['web_page']);
         echo $shop_detail->get_shop_name()."<br>";
         echo $shop_detail->getAddress()."<br>";
         echo $shop_detail->getSsn()."<br>";

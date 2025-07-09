@@ -12,9 +12,10 @@ private $id;
  public $hq_address;
  public $web_page;
 
- function __construct($shop_name,$address,$ssn,$shop_number,$telephone,$fax,$email,$hq_address,$web_page)
+ function __construct($id,$shop_name,$address,$ssn,$shop_number,$telephone,$fax,$email,$hq_address,$web_page)
  {
    
+    $this->id=$id;
      $this->shop_name=$shop_name;
      $this->address=$address;
      $this->ssn=$ssn;
