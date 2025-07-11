@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 25, 2025 at 11:24 AM
+-- Generation Time: Jul 11, 2025 at 11:46 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -186,7 +186,7 @@ INSERT INTO `shop` (`id`, `shop_name`) VALUES
 (6, 'Kaufland Hrvatska k.d.'),
 (1, 'KONZUM plus d.o.o.'),
 (2, 'T.O. Koala Vl. M.Jelic'),
-(4, 'TISAK plus d.o.o');
+(4, 'TISAK plus d.o.o.');
 
 -- --------------------------------------------------------
 
@@ -196,11 +196,11 @@ INSERT INTO `shop` (`id`, `shop_name`) VALUES
 
 CREATE TABLE `shop_detail` (
   `id` int(11) NOT NULL,
-  `shop_name` varchar(255) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `ssn` varchar(11) NOT NULL,
-  `shop number` varchar(255) NOT NULL,
-  `telephone` varchar(255) NOT NULL,
+  `shop_name` varchar(255) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `ssn` varchar(11) DEFAULT NULL,
+  `shop number` varchar(255) DEFAULT NULL,
+  `telephone` varchar(255) DEFAULT NULL,
   `fax` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `hq_address` varchar(255) DEFAULT NULL,
@@ -215,7 +215,7 @@ INSERT INTO `shop_detail` (`id`, `shop_name`, `address`, `ssn`, `shop number`, `
 (1, 'KONZUM plus d.o.o.', 'ZAGREB, NOVA VES 17', '62226620908', '3205', '0800 400 000', '', '', 'Zagreb, Ulica Marijana Čavića 1A', 'https://www.konzum.hr/'),
 (2, 'T.O. Koala Vl. M.Jelic', 'Matice Hrvatske 4, Požega', '39314924844', 'Izdv. Pogon 4', '034 / 275 – 990', NULL, NULL, 'Sl.Graničara 29, Nova Gradiška', 'https://koala-shop.hr/'),
 (3, 'Crovortex, obrt za trgovinu', 'Cenkovečka 5 10000 Zagreb, Croatia', '88317003800', 'POSL1', '+385 (0)91/508-3664', NULL, 'crovortex@gmail.com', NULL, 'https://www.crovortex.com/'),
-(4, 'TISAK plus d.o.o', 'SL. BROD - AUTOB. KOLODVOR', '32497003047', '918390', '+385 1 2641 111', '+385 1 2641 500', 'tisak@tisak.hr', 'SLAVONSKA AV. 11a, Zagreb', 'https://www.tisak.hr/'),
+(4, 'TISAK plus d.o.o.', 'SL. BROD - AUTOB. KOLODVOR', '32497003047', '918390', '+385 1 2641 111', '+385 1 2641 500', 'tisak@tisak.hr', 'SLAVONSKA AV. 11a, Zagreb', 'https://www.tisak.hr/'),
 (5, 'ASKA d.o.o', 'HR-34000 POŽEGA, Svatog Roka 38\r\n', '67618415844', 'Prodavaonica br.1', '091/300-1036', NULL, 'uprava@aska.hr', 'HR-31400 Đakovo, Psunjska 1A', NULL),
 (6, 'Kaufland Hrvatska k.d.', 'Njemačka ulica 40, Požega', '47432874968', 'PJ2730(Poslovnica 2730)', '0800 223 223', NULL, 'kontakt@kaufland.hr', 'Donje Svetice 14, Zagreb', 'https://www.kaufland.hr/');
 
@@ -240,7 +240,7 @@ INSERT INTO `shop_logo` (`id`, `shop_name`, `logo1_url`, `logo2_url`) VALUES
 (1, 'KONZUM plus d.o.o.', 'konzum_logo.png', ''),
 (2, 'T.O. Koala Vl. M.Jelic', 'koala_logo.png', ''),
 (3, 'Crovortex, obrt za trgovinu', 'crovertex_logo.png', ''),
-(4, 'TISAK plus d.o.o', 'tisak_logo.png', ''),
+(4, 'TISAK plus d.o.o.', 'tisak_logo.png', ''),
 (5, 'ASKA d.o.o', 'aska_logo.png', ''),
 (6, 'Kaufland Hrvatska k.d.', 'kaufland_logo.png', '');
 
@@ -429,7 +429,7 @@ ALTER TABLE `other_shop_or_bill_details`
 -- AUTO_INCREMENT for table `shop`
 --
 ALTER TABLE `shop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `shop_detail`

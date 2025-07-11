@@ -212,7 +212,10 @@ function validate_data($what_data_to_validate, $data)
       die(Validation::INVALID);
       $passed = 0;
     }
-  } else if ($what_data_to_validate == "shop_detail") {
+  } else if ($what_data_to_validate == CNST_VAL::FORM_SHOP_DET_NAME) {
+            foreach ($data as $value) {
+              echo $value."<br>";
+            }
   }
 
   return $passed;
@@ -421,11 +424,11 @@ function process_form($form_name, $operation)
           $shop_detail_array[]=$shop_detail->getFax(); 
           $shop_detail_array[]=$shop_detail->getHqAddress();
           $shop_detail_array[]=$shop_detail->getWebPage();
-          //successfully cleaned data
-          var_dump($shop_detail);
           $shop_detail_array=clean_data($shop_detail_array);
           //successfully cleaned data
-          var_dump($shop_detail_array);
+          //need to validate all unique values data
+          $validation=validate_data(CNST_VAL::FORM_SHOP_DET_NAME,$shop_detail_array);
+          //if validation has passed record can be inserted
         }
       }
     }
