@@ -213,10 +213,23 @@ function validate_data($what_data_to_validate, $data)
       $passed = 0;
     }
   } else if ($what_data_to_validate == CNST_VAL::FORM_SHOP_DET_NAME) {
+     $passed = 0;
     $vals=array("address", "ssn", "shop_number");
+    $cleaned_data=array();
      //get all the data from sql database
      //need only three valuse ssn, address and shop_number
      $sql_data=$connection->getAllData("shop_detail",$vals);
+     $cleaned_data=clean_data($sql_data);
+     foreach ($cleaned_data as $value) {
+       foreach ($data as $val) {
+         if($value==$val){
+          $passed=0;
+          break;
+         }else if($value!=$val){
+          $passed=1;
+         }
+       }
+     }
                 
   }
                                        
@@ -435,6 +448,11 @@ function process_form($form_name, $operation)
           //need to validate all unique values data
           $validation=validate_data(CNST_VAL::FORM_SHOP_DET_NAME,$shop_detail_array);
           //if validation has passed record can be inserted
+          if($validation==1){
+               echo "Now we can insert new data.";
+          }else{
+            echo Validation::FAILED_VALIDATION;
+          }
         }
       }
     }

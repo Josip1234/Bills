@@ -68,7 +68,7 @@ class DatabaseConnection{
     }
 	
   public function getAllData($table,$values){
-  
+    $data=array();
     $sql = 'SELECT ';
      $index=1;
     foreach($values as $val){
@@ -88,11 +88,12 @@ class DatabaseConnection{
     $statement=mysqli_query($this->getDbconn(),$sql);
     while($res=mysqli_fetch_array($statement)){
         foreach ($values as $value) {
-           echo $res[$value]."<br>";
+           $data[]=$res[$value];
         }
         
     }
 
+   return $data;
   }
 
 }
