@@ -123,7 +123,7 @@ function print_shop_details($shop_name)
     while ($res = mysqli_fetch_array($query)) {
       echo "<tr>";
       $id++;
-      $details = new ShopDetails($id, $shop_name, $res['address'], $res['ssn'], $res['shop number'], $res['telephone'], $res['fax'], $res['email'], $res['hq_address'], $res['web_page']);
+      $details = new ShopDetails($id, $shop_name, $res['address'], $res['ssn'], $res['shop_number'], $res['telephone'], $res['fax'], $res['email'], $res['hq_address'], $res['web_page']);
       $details->print_table_data();
       //kreiraj objekt shop logo i dohvati i ispiši logotipove
       while ($res2 = mysqli_fetch_array($exe_q)) {
@@ -213,13 +213,19 @@ function validate_data($what_data_to_validate, $data)
       $passed = 0;
     }
   } else if ($what_data_to_validate == CNST_VAL::FORM_SHOP_DET_NAME) {
-            foreach ($data as $value) {
-              echo $value."<br>";
-            }
+    $vals=array("address", "ssn", "shop_number");
+     //get all the data from sql database
+     //need only three valuse ssn, address and shop_number
+     $sql_data=$connection->getAllData("shop_detail",$vals);
+                
   }
-
+                                       
   return $passed;
 }
+
+
+
+
 
 function print_search_data_from_table($what_data, $what_table)
 {

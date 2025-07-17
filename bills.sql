@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2025 at 11:46 AM
+-- Generation Time: Jul 17, 2025 at 02:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -199,7 +199,7 @@ CREATE TABLE `shop_detail` (
   `shop_name` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `ssn` varchar(11) DEFAULT NULL,
-  `shop number` varchar(255) DEFAULT NULL,
+  `shop_number` varchar(255) DEFAULT NULL,
   `telephone` varchar(255) DEFAULT NULL,
   `fax` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
@@ -211,7 +211,7 @@ CREATE TABLE `shop_detail` (
 -- Dumping data for table `shop_detail`
 --
 
-INSERT INTO `shop_detail` (`id`, `shop_name`, `address`, `ssn`, `shop number`, `telephone`, `fax`, `email`, `hq_address`, `web_page`) VALUES
+INSERT INTO `shop_detail` (`id`, `shop_name`, `address`, `ssn`, `shop_number`, `telephone`, `fax`, `email`, `hq_address`, `web_page`) VALUES
 (1, 'KONZUM plus d.o.o.', 'ZAGREB, NOVA VES 17', '62226620908', '3205', '0800 400 000', '', '', 'Zagreb, Ulica Marijana Čavića 1A', 'https://www.konzum.hr/'),
 (2, 'T.O. Koala Vl. M.Jelic', 'Matice Hrvatske 4, Požega', '39314924844', 'Izdv. Pogon 4', '034 / 275 – 990', NULL, NULL, 'Sl.Graničara 29, Nova Gradiška', 'https://koala-shop.hr/'),
 (3, 'Crovortex, obrt za trgovinu', 'Cenkovečka 5 10000 Zagreb, Croatia', '88317003800', 'POSL1', '+385 (0)91/508-3664', NULL, 'crovortex@gmail.com', NULL, 'https://www.crovortex.com/'),

@@ -67,9 +67,34 @@ class DatabaseConnection{
         return $this->num_of_records;
     }
 	
+  public function getAllData($table,$values){
+  
+    $sql = 'SELECT ';
+     $index=1;
+    foreach($values as $val){
+        if($index==sizeof($values)){
+             $sql .= $val."";
+        }else{
+            $sql .= $val.",";
+        }
+        $index++;
+        
+    }
+    $sql .= " FROM ";
+    $sql .= $table;
+    $sql .= ";";
+
+    
+    $statement=mysqli_query($this->getDbconn(),$sql);
+    while($res=mysqli_fetch_array($statement)){
+        foreach ($values as $value) {
+           echo $res[$value]."<br>";
+        }
+        
+    }
+
+  }
 
 }
-
-
 
 ?>
