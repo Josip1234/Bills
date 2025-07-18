@@ -96,6 +96,90 @@ class DatabaseConnection{
    return $data;
   }
 
+
+  //we have tried to make a template, 
+  //problem to add preparing statement 
+  //we will simplyfy function for inserting data 
+  //for the specific table.
+  public function insert_into_table($what_values,$table, $condition, $values){
+    if($table==CNST_VAL::FORM_SHOP_DET_NAME){
+    $single_value="";
+    $multi_value=array();
+    $query="INSERT INTO ";
+    $query .= "".$table." (";
+    if(gettype($what_values)=="string"){
+       $single_value=$what_values;
+       $query .= "".$single_value.")";
+    }else{
+        $multi_value=$what_values;
+        $index=1;
+        foreach ($multi_value as $value) {
+            if($index==sizeof($multi_value)){
+                $query .= "".$value.")";
+            }else{
+                $query .= "".$value.",";
+            }
+           $index++;
+        }
+    }
+     $query .= " VALUES (";
+
+     $index=0;
+     //remove extra elements from arrays
+     //for example we have shop details we also have additional fields like id and shop name we need to remove this
+     $array_slice=array_slice($values,1);
+     $index=1;
+    foreach ($array_slice as $val) {
+        //echo $val; on this place we have found that email is missing 
+              if($index==sizeof($array_slice)){
+                  $query .= ""."?".")";
+              }else{
+ $query .= ""."?".",";
+              }
+             
+        
+              $index++;
+    }
+  //this is extra for now but will not remove it maybe it will be needed 
+  //later on in development
+    if(gettype($condition)=="string"){
+        //do nothing if there is array
+        //where clause must be in query
+        //insert query ba preparing statement overhere
+        //echo $query;
+        //this will be updated later
+    }else{
+    $query.=" WHERE ";
+    for($index=0;$index<sizeof($condition);$index++){
+        if($index+1==sizeof($condition)) break;
+        else{
+            $query .= $condition[$index];
+            $query .= "='";
+            $query .= $condition[$index+1]."'";
+        }
+      
+    }
+    
+}
+   //now we are doing prepare statement binding
+   $statement=$this->getDbconn()->prepare($query);
+    echo $query;
+ 
+    $shop_name=$array_slice[0];
+$address=$array_slice[1];
+$ssn=$array_slice[2];
+$shop_number=$array_slice[3];
+$telephone=$array_slice[4];
+$fax=$array_slice[5];
+$email=$array_slice[6];
+$hq_address=$array_slice[7];
+$web_page=$array_slice[8];
+
+   $statement->bind_param('sssssssss',$shop_name,$address,$ssn,$shop_number,$telephone,$fax,$email,$hq_address,$web_page);
+  
+   $statement->execute();
+  }
+  }
 }
 
 ?>

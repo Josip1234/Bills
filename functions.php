@@ -441,6 +441,7 @@ function process_form($form_name, $operation)
           $shop_detail_array[]=$shop_detail->getShopNumber();
           $shop_detail_array[]=$shop_detail->getTelephone();
           $shop_detail_array[]=$shop_detail->getFax(); 
+          $shop_detail_array[]=$shop_detail->getEmail(); 
           $shop_detail_array[]=$shop_detail->getHqAddress();
           $shop_detail_array[]=$shop_detail->getWebPage();
           $shop_detail_array=clean_data($shop_detail_array);
@@ -450,6 +451,9 @@ function process_form($form_name, $operation)
           //if validation has passed record can be inserted
           if($validation==1){
                echo "Now we can insert new data.";
+               $values_to_insert=array("shop_name","address","ssn","shop_number","telephone","fax","email","hq_address","web_page");
+               //$condition=array(CNST_VAL::SHOP_NAME_COLUMN,$shop_detail->get_shop_name());
+               $connection->insert_into_table($values_to_insert,CNST_VAL::FORM_SHOP_DET_NAME,"",$shop_detail_array);
           }else{
             echo Validation::FAILED_VALIDATION;
           }
