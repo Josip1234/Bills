@@ -5,6 +5,7 @@ function CRUDoperations(name,operation,table){
 //alert("Read values from this shop: "+shop_name);
 //alert("Operation of CRUD is: "+operation);
 var shop_name = name;
+var bill_number=name;
 if(table=="shop"){
 if(operation=="read"){
        window.open("http://localhost/Bills/shop_detail.php?shop_name=" + shop_name);
@@ -12,6 +13,10 @@ if(operation=="read"){
         window.open("http://localhost/Bills/update_shop.php?shop_name=" + shop_name);
     }else if(operation=="delete"){
            window.open("http://localhost/Bills/delete_shop.php?shop_name=" + shop_name);
+    }
+}else if(table=="bill_footer"){
+    if(operation=="read"){
+         window.open("http://localhost/Bills/bill_details.php?bill_number=" + bill_number);
     }
 }
 }

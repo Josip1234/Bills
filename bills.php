@@ -18,6 +18,7 @@
 print_search_form();
 print_checkboxes();
 print_navigation();
+print_bill_numbers_without_pagination();
 ?>
     
         <div class="row">

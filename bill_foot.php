@@ -54,5 +54,7 @@ class Bill_footer extends ShopDetails
 
 	public function setShopSsn( $shop_ssn): void {$this->shop_ssn = $shop_ssn;}
 
-	
+	public function printBillNmber(){
+        echo "<td>".$this->getBillNumber()."</td>";
+    }
 }

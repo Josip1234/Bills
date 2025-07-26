@@ -10,5 +10,7 @@ const DELETION_FAIL="<p class='text-danger'>Record deletion has failed.</p>";
 const FORM_SHOP_DET_NAME="shop_detail";
 const INSERT_NEW_SHOP_DET_OPERATION="insert_new_shop_detail";
 const SHOP_NAME_COLUMN="shop_name";
+const BILL_FOOTER_TABLE="bill_footer";
+const BILL_FOOTER_BILL_NUMBER="bill_number";
 }
 ?>

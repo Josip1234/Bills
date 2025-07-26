@@ -3,6 +3,7 @@ include("shop_details.php");
 include("validation_message.php");
 include("pagination.php");
 include("cnst_vals.php");
+include("bill_foot.php");
 
 $connection = new DatabaseConnection("localhost", "root", "", "bills", "utf8");
 $pagination = new Pagination("yes", "yes", 0, 0, 0, 0, 0);
@@ -11,6 +12,7 @@ $op2 = '"update"';
 $op3 = '"delete"';
 $read_shops = '"shop"';
 $create_form = '"New Shop Detail form"';
+$read_bill_details='"bill_footer"';
 
 //function to print all shops from database
 function print_all_available_shops()
@@ -116,6 +118,7 @@ function print_shop_details($shop_name)
     <th scope='col'>Email</th>
     <th scope='col'>Adresa sjedišta</th>
     <th scope='col'>Web adresa</th>
+      <th scope='col'>#</th>
     <th scope='col'>Logotipovi</th>
     </tr></thead>";
     echo "<tbody>";
@@ -538,3 +541,37 @@ function print_details_form()
   </div>
 </form></div>";
 }
+
+function print_bill_numbers_without_pagination(){
+  global $op;
+global $connection;
+global $read_bill_details;
+$connection->connectToDatabase();
+$bill_footer=new Bill_footer("","","","","","","","");
+$table_name=CNST_VAL::BILL_FOOTER_TABLE;
+$column_name=CNST_VAL::BILL_FOOTER_BILL_NUMBER;
+$sql = "SELECT $column_name FROM $table_name";
+$stat = $connection->getDbconn()->prepare($sql);
+$stat->execute();
+$result = $stat->get_result();
+echo "<div class='row'>";
+echo "<div class='col'>";
+echo "<table class='table table-striped'>";
+echo "<thead><tr><th scope='col'>Broj računa</th><th scope='col'>#</th></tr></thead>";
+echo "<tbody>";
+while($row=mysqli_fetch_array($result)){
+  echo "<tr>";
+  $bill_footer->setBillNumber($row[$column_name]);
+  $bill_footer->printBillNmber();
+  echo "<td><button id='" . $bill_footer->getBillNumber() . "' type='button' class='btn btn-light' onclick='CRUDoperations(this.id," . $op . "," . $read_bill_details . ")'>Detalji</button>";
+  echo "</tr>";
+}
+echo "</tbody>";
+echo "</table>";
+echo "</div>";
+echo "</div>";
+$connection->close_database();
+}
+
+
+

@@ -87,7 +87,9 @@ public function setId( $id): void {$this->id = $id++;}
         echo "<td>".$this->getEmail()."</td>";
         echo "<td>".$this->getHqAddress()."</td>";
         echo "<td>".$this->getWebPage()."</td>";
-    }
+        echo "<td><button id='" . $this->get_shop_name() . "' type='button' class='btn btn-light')'>Izbriši</button></td>";
+
+    }   
 
 
 
