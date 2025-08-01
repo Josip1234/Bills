@@ -8,6 +8,8 @@ class Validation{
     const INSERT_FAILED="<p class='text-danger'>Adding new record to database has failed.</p>";
     const EMPTY_RECORD="Error!!! The record you wanted to insert is empty. Please, enter non-empty entry.";
     const FAILED_VALIDATION="<p class='text-danger'>Validation has failed. Please, enter different values.</p>";
+    const DELETE_CONFIRMATION = "Are you sure do you want to delete data with id number ";
+    const SUCCESSFULL_DELETION="<p class='text-success'>Successfully deleted record in database</p>";
 }
 
 ?>

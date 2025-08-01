@@ -87,9 +87,17 @@ public function setId( $id): void {$this->id = $id++;}
         echo "<td>".$this->getEmail()."</td>";
         echo "<td>".$this->getHqAddress()."</td>";
         echo "<td>".$this->getWebPage()."</td>";
-        echo "<td><button id='" . $this->get_shop_name() . "' type='button' class='btn btn-light')'>Izbriši</button></td>";
+          $self = $_SERVER['PHP_SELF'];
+            if (isset($_GET['shop_name'])) {
+    $self .= "?shop_name=";
+    $self .= $_GET['shop_name'];
+  }
+        echo "<td><form action='" . htmlspecialchars($self) . "' method='POST'><input id='" . $this->getId() . "' type='submit' class='btn btn-light' value='Izbriši'><input type='hidden' name='".CNST_VAL::DELETE_SHOP_DETAIL."' value='".CNST_VAL::DELETE_SHOP_DETAIL."'>
+        <input type='hidden' name='id' value='".$this->getId()."'>
+        </td></form>";
 
     }   
+
 
 
 

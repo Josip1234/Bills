@@ -126,7 +126,7 @@ function print_shop_details($shop_name)
     while ($res = mysqli_fetch_array($query)) {
       echo "<tr>";
       $id++;
-      $details = new ShopDetails($id, $shop_name, $res['address'], $res['ssn'], $res['shop_number'], $res['telephone'], $res['fax'], $res['email'], $res['hq_address'], $res['web_page']);
+      $details = new ShopDetails($res['id'], $shop_name, $res['address'], $res['ssn'], $res['shop_number'], $res['telephone'], $res['fax'], $res['email'], $res['hq_address'], $res['web_page']);
       $details->print_table_data();
       //kreiraj objekt shop logo i dohvati i ispiši logotipove
       while ($res2 = mysqli_fetch_array($exe_q)) {
@@ -146,6 +146,13 @@ function print_shop_details($shop_name)
     echo "<p><form method='post'><button class='btn btn-light' name='innsd'>Unos novog detalja</button></form>";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       process_form(CNST_VAL::FORM_SHOP_DET_NAME, CNST_VAL::INSERT_NEW_SHOP_DET_OPERATION);
+      process_form(CNST_VAL::FORM_SHOP_DET_NAME,CNST_VAL::DELETE_SHOP_DETAIL);
+      if(isset($_POST['confirm'])){
+        if(isset($_POST['id'])){
+          delete_shop_detail_record_with_id($_POST['id']); 
+        }
+       
+      }
     }
 
     $connection->close_database();
@@ -462,8 +469,35 @@ function process_form($form_name, $operation)
           }
         }
       }
+    }else if($operation==CNST_VAL::DELETE_SHOP_DETAIL){
+      if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST[CNST_VAL::DELETE_SHOP_DETAIL])){
+        //are you sure do you want to delete this detail?
+        echo Validation::DELETE_CONFIRMATION;
+        echo $_POST['id'];
+        echo "?";
+      $self = $_SERVER['PHP_SELF'];
+            if (isset($_GET['shop_name'])) {
+    $self .= "?shop_name=";
+    $self .= $_GET['shop_name'];
+  }
+     echo "<form action='".htmlspecialchars($self)."' method='POST'>
+            <input type='hidden' name='id' value='".$_POST['id']."'>
+               <input type='hidden' name='confirm' value='confirm'>
+            <input type='submit' class='btn btn-light' value='Delete record'>
+     </form>";
+      }
     }
   }
+}
+
+function delete_shop_detail_record_with_id($id){
+  global $connection;
+  $table_name=CNST_VAL::FORM_SHOP_DET_NAME;
+  $sql_query="DELETE FROM $table_name WHERE id=?";
+  $statement=$connection->getDbconn()->prepare($sql_query);
+  $statement->bind_param('i',$id);
+  $statement->execute();
+  echo Validation::SUCCESSFULL_DELETION;
 }
 
 function delete_shop()
