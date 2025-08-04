@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 17, 2025 at 02:45 PM
+-- Generation Time: Aug 04, 2025 at 12:06 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -76,10 +76,10 @@ CREATE TABLE `bill_footer` (
 
 INSERT INTO `bill_footer` (`id`, `bill_number`, `date`, `ZKI`, `JIR`, `ref_number`, `other`, `barcode_image_url`, `shop_ssn`) VALUES
 (1, '26691/3205/60', '2022-07-14 14:57:07', '61190da357423eb32fe0a6b39ae19111', '8a0bd979-8948-4668-8030-3685a45aa06f', '83/2320560208', 'Kupujte i online na www.konzum.hr\r\n', '', '62226620908'),
-(2, '3033/PP4/1', '2024-04-06 10:24:26', '6867931bd51a0836a61a495a37ec5314', 'fe2cade0-e86a-4188-958a-ec4580d98a09', '0.15522042769493574', 'ozn. operatera: OPERATER 48\nNaćin plaćanja: gotovina\nHvala na kupnji! Zamjena robe moguća je u roku od 10 dana od danje kupnje uz predočenje računa. Odjeća i galenterija mora sadržavati pripadajuće deklaracije, a obuća originalnu ambalažu. Obuća, odjeća i galenterija ne smije biti nošena u slučaju zamjene. U slučaju zamjene robe povrat novca nije moguć', 'C:\\Users\\Korisnik\\Desktop\\xmp\\htdocs\\Bills\\WIN_20230224_19_01_22_Pro.jpg', '39314924844'),
-(4, '186/POSL1/1', '2024-03-11 11:37:00', 'no zki number', 'no jir number', 'no ref number', '{\r\n   \"Details\":{\r\n      \"Dospjijeće\":\"29.02.2024.\",\r\n      \"Način/mjesto isporuke\":\"Tisak (913070)\",\r\n      \"Način plaćanja\":\"Transakcijski račun\",\r\n      \"Poziv na broj\":\"186-2024\",\r\n      \"Kupac\":\"Bošnjak Josip (Tisak) Sveti rok 81 34000 Požega\",\r\n      \"Tel./e-mail\":\"0919759754, jbosnjak3@gmail.com\"\r\n   }\r\n}', 'C:\\Users\\Korisnik\\Desktop\\xmp\\htdocs\\Bills\\WIN_20240407_14_15_18_Pro.jpg', '88317003800'),
-(5, '15411/918390/1', '2024-04-09 15:44:00', '1b6849e061551a54b69141fcd63ddcd0', '9756af73-3c7a-4ea0-80eb-1dbd9f5a11a4', NULL, 'Blagajna:1, spr:1190, PM:918390, GOTOVINA', 'C:\\Users\\Korisnik\\Desktop\\xmp\\htdocs\\Bills\\WIN_20240409_19_30_32_Pro.jpg', '32497003047'),
-(6, '15707/P01/1', '2024-04-15 10:19:39', 'f750b53b04516f5dd8f16887c574347c', '6732c045-605b-4c37-9acb-1dbd9f5aa907', NULL, 'Ana Đurina \r\nPožega', 'C:\\Users\\Korisnik\\Desktop\\xmp\\htdocs\\Bills\\2024-04-15 13_48_48-Window.png', '67618415844'),
+(2, '3033/PP4/1', '2024-04-06 10:24:26', '6867931bd51a0836a61a495a37ec5314', 'fe2cade0-e86a-4188-958a-ec4580d98a09', '0.15522042769493574', 'ozn. operatera: OPERATER 48\nNaćin plaćanja: gotovina\nHvala na kupnji! Zamjena robe moguća je u roku od 10 dana od danje kupnje uz predočenje računa. Odjeća i galenterija mora sadržavati pripadajuće deklaracije, a obuća originalnu ambalažu. Obuća, odjeća i galenterija ne smije biti nošena u slučaju zamjene. U slučaju zamjene robe povrat novca nije moguć', 'WIN_20230224_19_01_22_Pro.jpg', '39314924844'),
+(4, '186/POSL1/1', '2024-03-11 11:37:00', 'no zki number', 'no jir number', 'no ref number', '{\r\n   \"Details\":{\r\n      \"Dospjijeće\":\"29.02.2024.\",\r\n      \"Način/mjesto isporuke\":\"Tisak (913070)\",\r\n      \"Način plaćanja\":\"Transakcijski račun\",\r\n      \"Poziv na broj\":\"186-2024\",\r\n      \"Kupac\":\"Bošnjak Josip (Tisak) Sveti rok 81 34000 Požega\",\r\n      \"Tel./e-mail\":\"0919759754, jbosnjak3@gmail.com\"\r\n   }\r\n}', 'WIN_20240407_14_15_18_Pro.jpg', '88317003800'),
+(5, '15411/918390/1', '2024-04-09 15:44:00', '1b6849e061551a54b69141fcd63ddcd0', '9756af73-3c7a-4ea0-80eb-1dbd9f5a11a4', NULL, 'Blagajna:1, spr:1190, PM:918390, GOTOVINA', 'WIN_20240409_19_30_32_Pro.jpg', '32497003047'),
+(6, '15707/P01/1', '2024-04-15 10:19:39', 'f750b53b04516f5dd8f16887c574347c', '6732c045-605b-4c37-9acb-1dbd9f5aa907', NULL, 'Ana Đurina \r\nPožega', '2024-04-15 13_48_48-Window.png', '67618415844'),
 (7, '36239/2730/7', '2024-05-18 13:44:52', '6b342d5ee224faf12673e9e932bd2353', '9469174b-6ac6-4ae7-bfdf-3a091970bc00', NULL, '{\"Details\":{\r\n      \"Pot\":\"48340\",\r\n      \"Pos\":\"7\",\r\n      \"Blagajnik\":\"319\",\r\n      \"Ušteda\":\"Uz kaufland card uštedjeli biste: 0,04 EUR\"\r\n}\r\n}', NULL, '47432874968');
 
 -- --------------------------------------------------------
@@ -181,7 +181,7 @@ CREATE TABLE `shop` (
 --
 
 INSERT INTO `shop` (`id`, `shop_name`) VALUES
-(5, 'ASKA d.o.o'),
+(5, 'ASKA d.o.o.'),
 (3, 'Crovortex, obrt za trgovinu'),
 (6, 'Kaufland Hrvatska k.d.'),
 (1, 'KONZUM plus d.o.o.'),
@@ -196,7 +196,7 @@ INSERT INTO `shop` (`id`, `shop_name`) VALUES
 
 CREATE TABLE `shop_detail` (
   `id` int(11) NOT NULL,
-  `shop_name` varchar(255) DEFAULT NULL,
+  `shop_name` varchar(255) NOT NULL,
   `address` varchar(255) DEFAULT NULL,
   `ssn` varchar(11) DEFAULT NULL,
   `shop_number` varchar(255) DEFAULT NULL,
@@ -216,7 +216,7 @@ INSERT INTO `shop_detail` (`id`, `shop_name`, `address`, `ssn`, `shop_number`, `
 (2, 'T.O. Koala Vl. M.Jelic', 'Matice Hrvatske 4, Požega', '39314924844', 'Izdv. Pogon 4', '034 / 275 – 990', NULL, NULL, 'Sl.Graničara 29, Nova Gradiška', 'https://koala-shop.hr/'),
 (3, 'Crovortex, obrt za trgovinu', 'Cenkovečka 5 10000 Zagreb, Croatia', '88317003800', 'POSL1', '+385 (0)91/508-3664', NULL, 'crovortex@gmail.com', NULL, 'https://www.crovortex.com/'),
 (4, 'TISAK plus d.o.o.', 'SL. BROD - AUTOB. KOLODVOR', '32497003047', '918390', '+385 1 2641 111', '+385 1 2641 500', 'tisak@tisak.hr', 'SLAVONSKA AV. 11a, Zagreb', 'https://www.tisak.hr/'),
-(5, 'ASKA d.o.o', 'HR-34000 POŽEGA, Svatog Roka 38\r\n', '67618415844', 'Prodavaonica br.1', '091/300-1036', NULL, 'uprava@aska.hr', 'HR-31400 Đakovo, Psunjska 1A', NULL),
+(5, 'ASKA d.o.o.', 'HR-34000 POŽEGA, Svatog Roka 38\r\n', '67618415844', 'Prodavaonica br.1', '091/300-1036', NULL, 'uprava@aska.hr', 'HR-31400 Đakovo, Psunjska 1A', NULL),
 (6, 'Kaufland Hrvatska k.d.', 'Njemačka ulica 40, Požega', '47432874968', 'PJ2730(Poslovnica 2730)', '0800 223 223', NULL, 'kontakt@kaufland.hr', 'Donje Svetice 14, Zagreb', 'https://www.kaufland.hr/');
 
 -- --------------------------------------------------------
@@ -241,7 +241,7 @@ INSERT INTO `shop_logo` (`id`, `shop_name`, `logo1_url`, `logo2_url`) VALUES
 (2, 'T.O. Koala Vl. M.Jelic', 'koala_logo.png', ''),
 (3, 'Crovortex, obrt za trgovinu', 'crovertex_logo.png', ''),
 (4, 'TISAK plus d.o.o.', 'tisak_logo.png', ''),
-(5, 'ASKA d.o.o', 'aska_logo.png', ''),
+(5, 'ASKA d.o.o.', 'aska_logo.png', ''),
 (6, 'Kaufland Hrvatska k.d.', 'kaufland_logo.png', '');
 
 -- --------------------------------------------------------
@@ -435,7 +435,7 @@ ALTER TABLE `shop`
 -- AUTO_INCREMENT for table `shop_detail`
 --
 ALTER TABLE `shop_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `shop_logo`

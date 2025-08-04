@@ -1,5 +1,5 @@
 <?php
-class Bill_footer extends ShopDetails
+class Bill_footer
 {
     private $bill_number;
     private $date;

@@ -98,12 +98,74 @@ function print_all_available_shops()
     print_navigation();
   }
 }
+
+function print_bill_details(){
+  global $connection;
+  //if bill number exists in url
+  if(isset($_GET['bill_number'])){
+      $table=CNST_VAL::BILL_FOOTER_TABLE;
+      $bill_foot=new Bill_footer($_GET['bill_number'],"","","","","","","");
+      $connection->connectToDatabase();
+      $query="SELECT date,ZKI,JIR,ref_number,other,barcode_image_url,shop_ssn FROM $table WHERE bill_number=?";
+      $statement=$connection->getDbconn()->prepare($query);
+      $bn=$bill_foot->getBillNumber();
+      $statement->bind_param("s",$bn);
+      if($statement->execute()){
+           $result = $statement->get_result();
+           echo "<h2>Detalji računa</h2>";
+            echo "<table class='table table-striped'>";
+            echo "<thead>";
+            echo "<tr>";
+            echo "<th scope='col'>Datum</th><th scope='col'>ZKI</th><th scope='col'>JIR</th><th scope='col'>Referentni broj</th><th scope='col'>Ostalo</th><th scope='col'>Barkod</th><th scope='col'>Oib trgovine</th>";
+            echo "</tr>";
+            echo "</thead>";
+            echo "<tbody>";
+            echo "<tr>";
+            while($row=mysqli_fetch_array($result)){
+              echo "<td>";
+              echo $row['date'];
+              echo "</td>";
+              echo "<td>";
+              echo $row['ZKI'];
+              echo "</td>";
+                echo "<td>";
+              echo $row['JIR'];
+              echo "</td>";
+                echo "<td>";
+              echo $row['ref_number'];
+              echo "</td>";
+                echo "<td>";
+              echo $row['other'];
+              echo "</td>";
+                echo "<td>";
+                if($row['barcode_image_url']==NULL){
+                     echo CNST_VAL::NO_VALUE;
+                }else{
+   echo "<img src='".$row['barcode_image_url']."' alt='".$bn."' class='logo'>";
+                }
+           
+              echo "</td>";
+                echo "<td>";
+              echo $row['shop_ssn'];
+              echo "</td>";
+            }
+            echo "</tr>";
+            echo "</tbody>";
+            echo "</table>";
+
+      }
+      $connection->close_database();
+  }
+}
+
+
 function print_shop_details($shop_name)
 {
   if (isset($_GET['shop_name'])) {
     include("shop_logo.php");
     global $connection;
     $shop = new Shop($shop_name);
+    //višak ovo treba odstraniti definirali smo vezu prema bazi na početku skripte i koristili smo global connection da zovemo objekt
     $connection = new DatabaseConnection("localhost", "root", "", "bills", "utf8");
     $connection->connectToDatabase();
     $sql = "SELECT * FROM shop_detail WHERE shop_name='" . $shop->get_shop_name() . "'";
