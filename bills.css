@@ -2,6 +2,10 @@
     width: 30%;
     height: 30%;
 }
+.logo2{
+    width: 22.35%;
+    height: 22.35%;
+}
 input,
 input::placeholder {
     font-size: 80%;

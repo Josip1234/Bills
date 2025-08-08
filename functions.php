@@ -112,51 +112,82 @@ function print_bill_details(){
       $statement->bind_param("s",$bn);
       if($statement->execute()){
            $result = $statement->get_result();
+           //we do not need fetch array for this we can use assoc array and to get valuee from that footer has one item per bill
+          $assoc_array=mysqli_fetch_assoc($result);
            echo "<h2>Detalji računa</h2>";
-            echo "<table class='table table-striped'>";
-            echo "<thead>";
-            echo "<tr>";
-            echo "<th scope='col'>Datum</th><th scope='col'>ZKI</th><th scope='col'>JIR</th><th scope='col'>Referentni broj</th><th scope='col'>Ostalo</th><th scope='col'>Barkod</th><th scope='col'>Oib trgovine</th>";
-            echo "</tr>";
-            echo "</thead>";
-            echo "<tbody>";
-            echo "<tr>";
-            while($row=mysqli_fetch_array($result)){
-              echo "<td>";
-              echo $row['date'];
-              echo "</td>";
-              echo "<td>";
-              echo $row['ZKI'];
-              echo "</td>";
-                echo "<td>";
-              echo $row['JIR'];
-              echo "</td>";
-                echo "<td>";
-              echo $row['ref_number'];
-              echo "</td>";
-                echo "<td>";
-              echo $row['other'];
-              echo "</td>";
-                echo "<td>";
-                if($row['barcode_image_url']==NULL){
+           echo "<div class='row'>";
+           echo "<div class='col p-5'>";
+           echo "<h2>Broj računa:</h2>"."<p>".$bill_foot->getBillNumber()."</p>";
+           echo "</div>";
+           echo "</div>";
+           echo "<div class='row'>";
+           echo "<div class='col'>";
+            echo "<ul class='list-group list-group-horizontal m-1'>";
+              echo " <li class='list-group-item list-group-item-primary d-xl-flex'>Datum</li>";
+                    echo "<li class='list-group-item list-group-item-light'>";
+              echo $assoc_array['date'];
+              echo "</li>";
+              echo "</ul>";
+               echo "<ul class='list-group list-group-horizontal m-1'>";
+            echo " <li class='list-group-item list-group-item-primary'>ZKI</li>";
+                 echo "<li class='list-group-item list-group-item-light'>";
+              echo $assoc_array['ZKI'];
+              echo "</li>";
+              echo "</ul>";
+              echo "<ul class='list-group list-group-horizontal m-1'>";
+            echo " <li class='list-group-item list-group-item-primary'>JIR</li>";
+                echo "<li class='list-group-item list-group-item-light'>";
+              echo $assoc_array['JIR'];
+            echo "</li>";
+            echo "</ul>";
+               echo "<ul class='list-group list-group-horizontal m-1'>";
+            echo " <li class='list-group-item list-group-item-primary'>Referentni broj</li>";
+                echo "<li class='list-group-item list-group-item-light'>";
+                if($assoc_array['ref_number']==NULL){
+                  echo CNST_VAL::NO_VALUE;
+                }else{
+      echo $assoc_array['ref_number'];
+                }
+        
+              echo "</li>";
+              echo "</ul>";
+                     echo "<ul class='list-group list-group-horizontal m-1'>";
+                echo " <li class='list-group-item list-group-item-primary'>Ostalo</li>";
+                    echo "<li class='list-group-item list-group-item-light'>";
+              echo $assoc_array['other'];
+             echo "</li>";
+             echo "</ul>";
+              echo "<ul class='list-group list-group-horizontal m-1'>";
+                    echo " <li class='list-group-item list-group-item-primary'>Oib trgovine</li>";
+       echo "<li class='list-group-item list-group-item-light'>";
+              echo $assoc_array['shop_ssn'];
+             echo "</li>";
+            echo "</ul>";
+         
+         
+            
+            
+            
+        
+           
+            }
+            
+            echo "</div>";
+            echo "<div class='col'>";
+            echo "<h2>Barkod slika računa</h2>";
+                if($assoc_array['barcode_image_url']==NULL){
                      echo CNST_VAL::NO_VALUE;
                 }else{
-   echo "<img src='".$row['barcode_image_url']."' alt='".$bn."' class='logo'>";
+   echo "<img src='".$assoc_array['barcode_image_url']."' alt='".$bn."' class='logo'>";
                 }
            
-              echo "</td>";
-                echo "<td>";
-              echo $row['shop_ssn'];
-              echo "</td>";
-            }
-            echo "</tr>";
-            echo "</tbody>";
-            echo "</table>";
+            echo "</div>";
+            echo "</div>";
 
       }
       $connection->close_database();
   }
-}
+
 
 
 function print_shop_details($shop_name)

@@ -15,5 +15,6 @@ const BILL_FOOTER_BILL_NUMBER="bill_number";
 const DELETE_SHOP_DETAIL="delete_shop_detail";
 const YES="Yes";
 CONST NO_VALUE="Nema vrijednosti.";
+CONST NO_BARCODE_VALUE="Nema barkod koda.";
 }
 ?>
