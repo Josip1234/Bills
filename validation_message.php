@@ -10,6 +10,9 @@ class Validation{
     const FAILED_VALIDATION="<p class='text-danger'>Validation has failed. Please, enter different values.</p>";
     const DELETE_CONFIRMATION = "Are you sure do you want to delete data with id number ";
     const SUCCESSFULL_DELETION="<p class='text-success'>Successfully deleted record in database</p>";
+    const SUCCESSFULL_LOGO_UPLOAD="<p class='text-success'>Successfully uploaded new company logo.</p>";
+    const UNSUCCESSFULL_LOGO_UPLOAD="<p class='text-danger'>Failed to upload new shop logo.</p>";
+    const VALIDATION_FAILED="<p class='text-danger'>Validation has failed.</p>";
 }
 
 ?>

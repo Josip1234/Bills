@@ -580,6 +580,32 @@ function process_form($form_name, $operation)
      </form>";
       }
     }
+  }else if($form_name==CNST_VAL::SHOP_LOGO_FORM_NAME){
+    if($operation==CNST_VAL::OPERATION_SHOP_LOGO_NAME){
+      include("shop_logo.php");
+      $target_dir="";
+      $shop_logo=new Shop_Logo($_POST['shop_name'],"","");
+      $file=$target_dir . basename($_FILES[CNST_VAL::LOGO_COLUMN_NAME]["name"]);
+      $validate=validate_file_input($file);
+      $fi=$_FILES[CNST_VAL::LOGO_COLUMN_NAME]["tmp_name"];
+      if($validate==1){
+        //before upload, we need to check database
+        //if file already exists in database do not upload this file
+        //display an error
+        $upload_this=$file;
+        if(move_uploaded_file($fi,$upload_this)){
+               $shop_logo->setLogo1Url($file); 
+  echo Validation::SUCCESSFULL_LOGO_UPLOAD;
+        }else{
+       
+          echo Validation::UNSUCCESSFULL_LOGO_UPLOAD;
+        
+        }
+
+      }else{
+        echo Validation::VALIDATION_FAILED;
+      }
+    }
   }
 }
 
@@ -700,5 +726,67 @@ echo "</div>";
 $connection->close_database();
 }
 
+function print_shop_logo_form(){
+    $self = $_SERVER['PHP_SELF'];
+  if (isset($_GET['shop_name'])) {
+    $self .= "?shop_name=";
+    $self .= $_GET['shop_name'];
+  }
+  echo "<div class='row'><div class='col p-5'><form action='" . htmlspecialchars($self) . "' method='post' enctype='multipart/form-data'>
+  <div class='mb-3'>
+  <label for='".CNST_VAL::LOGO_COLUMN_NAME."' class='form-label'>".CNST_VAL::INSERT_NEW_LOGO."</label>
+  <input type='file' id='".CNST_VAL::LOGO_COLUMN_NAME."' name='".CNST_VAL::LOGO_COLUMN_NAME."' class='form-control'>
+  </div>
+  <input type='hidden' id='shop_name' name='shop_name' value='".$_GET['shop_name']."'>
+   <div class='col'>
+  <button type='submit' class='btn btn-light'>Pošalji unos</button>
+  </div>
+</form>
+</div>
+</div>
+";
 
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+  process_form(CNST_VAL::SHOP_LOGO_FORM_NAME,CNST_VAL::OPERATION_SHOP_LOGO_NAME);
+}
+
+
+}
+
+function validate_file_input($file){
+$target_file = $file;
+$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+  $validation_passed=0;
+  // Check if file already exists
+if (file_exists($target_file)) {
+  echo "Sorry, file already exists.";
+  $validation_passed = 0;
+}else{
+  $validation_passed=1;
+}
+$temp_validation=$validation_passed;
+$validation_passed=0;
+
+// Allow certain file formats
+if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+&& $imageFileType != "gif" && $imageFileType != "webp") {
+  echo "Sorry, only JPG, JPEG, PNG GIF and webp files are allowed.";
+  $validation_passed = 0;
+}else{
+  $validation_passed=1;
+}
+if($validation_passed==$temp_validation){
+  $validation_passed=1;
+}else{
+  $validation_passed=0;
+}
+
+return $validation_passed;
+}
+
+
+
+
+?>
 

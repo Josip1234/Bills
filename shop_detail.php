@@ -25,7 +25,15 @@
   <div class="row">
     <div class="col">
       <a href="shops.php?current_url=10&page_number=0" target="_blank" rel="noopener noreferrer" class="text-decoration-none text_primary">Back to list of shops</a>
-      
+      <?php 
+      if(isset($_GET['shop_name'])){
+        $sn=$_GET['shop_name'];
+          echo "<a href='add_new_shop_logo.php?shop_name=".$sn."' target='_blank' class='text-decoration-none text_primary'>Add new shop logo</a>";
+
+      }
+
+
+?>
     </div>
   </div>
 

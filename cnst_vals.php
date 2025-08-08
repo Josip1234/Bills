@@ -14,7 +14,11 @@ const BILL_FOOTER_TABLE="bill_footer";
 const BILL_FOOTER_BILL_NUMBER="bill_number";
 const DELETE_SHOP_DETAIL="delete_shop_detail";
 const YES="Yes";
-CONST NO_VALUE="Nema vrijednosti.";
-CONST NO_BARCODE_VALUE="Nema barkod koda.";
+const NO_VALUE="Nema vrijednosti.";
+const NO_BARCODE_VALUE="Nema barkod koda.";
+const INSERT_NEW_LOGO="Uploadaj novi logotip kompanije.";
+const LOGO_COLUMN_NAME="logo1_url";
+const OPERATION_SHOP_LOGO_NAME="insert_new_shop_logo";
+const SHOP_LOGO_FORM_NAME="shop_logo";
 }
 ?>
