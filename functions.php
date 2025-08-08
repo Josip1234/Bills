@@ -589,13 +589,27 @@ function process_form($form_name, $operation)
       $validate=validate_file_input($file);
       $fi=$_FILES[CNST_VAL::LOGO_COLUMN_NAME]["tmp_name"];
       if($validate==1){
-        //before upload, we need to check database
-        //if file already exists in database do not upload this file
-        //display an error
         $upload_this=$file;
         if(move_uploaded_file($fi,$upload_this)){
                $shop_logo->setLogo1Url($file); 
   echo Validation::SUCCESSFULL_LOGO_UPLOAD;
+          //after upload, we need to check database
+        //if file already exists in database do not upload this file
+        //display an error
+        //we need database connection first 
+        //maybe we do not need it however maybe it would be possible to 
+        //have a record of file written in database maybe this should be enabled to update if exists 
+        //if user wants, we need to make a function for logo deletion then 
+        $num_of_records=$connection->get_num_of_records_from_table_where_clause(CNST_VAL::SHOP_LOGO_FORM_NAME,CNST_VAL::LOGO_COLUMN_NAME,$file);
+         $operation="";
+         $query="";
+         if($num_of_records==0){
+          $operation=CNST_VAL::OPERATION_INSERT_LOGO;
+          $query=$connection->produce_query_string(CNST_VAL::SHOP_LOGO_FORM_NAME,array(CNST_VAL::SHOP_NAME_COLUMN,CNST_VAL::LOGO_COLUMN_NAME),array($shop_logo->get_shop_name(),$shop_logo->getLogo1Url()),CNST_VAL::OPERATION_INSERT_LOGO);
+          echo $query;
+         }else{
+          $operation=CNST_VAL::OPERATION_UPDATE_LOGO;
+         }
         }else{
        
           echo Validation::UNSUCCESSFULL_LOGO_UPLOAD;

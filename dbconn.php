@@ -66,6 +66,16 @@ class DatabaseConnection{
         $this->setNumOfRecords($result);
         return $this->num_of_records;
     }
+
+
+        public function get_num_of_records_from_table_where_clause($table,$column,$comp_data){
+        $query="SELECT COUNT(*) FROM $table WHERE $column = '$comp_data'";
+        $execute_query=mysqli_query($this->getDbconn(),$query);
+        $result=$execute_query->fetch_column();
+        $this->setNumOfRecords($result);
+        return $this->num_of_records;
+    }
+
 	
   public function getAllData($table,$values){
     $data=array();
@@ -179,6 +189,40 @@ $web_page=$array_slice[8];
   
    $statement->execute();
   }
+  }
+
+  public function produce_query_string($table,$columns,$data,$operation_name){
+         $query_string="";
+         if($operation_name==CNST_VAL::OPERATION_INSERT_LOGO){
+               $query_string .= "INSERT INTO ";
+               $query_string .= "$table";
+               $query_string .= "(";
+               $index=1;
+               foreach ($columns as $value) {
+                if($index==sizeof($columns)){
+                   $query_string .= $value;
+                }else{
+                   $query_string .= $value.",";
+                }
+                $index++;
+               }
+                $query_string .= ") ";
+                  $query_string .= "VALUES";
+                  $query_string .= ("(");
+                  $index=1;
+                  foreach ($data as $value) {
+                    if($index==sizeof($data)){
+                         $query_string .= "'".$value."'";
+                    }else{
+                       $query_string .= "'".$value."',";
+                    }
+                    $index++;
+                  }
+                  $query_string .= ")";
+         }else if($operation_name==CNST_VAL::OPERATION_UPDATE_LOGO){
+
+         }
+         return $query_string;
   }
 }
 

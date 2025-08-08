@@ -20,5 +20,7 @@ const INSERT_NEW_LOGO="Uploadaj novi logotip kompanije.";
 const LOGO_COLUMN_NAME="logo1_url";
 const OPERATION_SHOP_LOGO_NAME="insert_new_shop_logo";
 const SHOP_LOGO_FORM_NAME="shop_logo";
+const OPERATION_INSERT_LOGO="insert new logo";
+const OPERATION_UPDATE_LOGO="update old logo";
 }
 ?>
