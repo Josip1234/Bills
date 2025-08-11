@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2025 at 12:06 PM
+-- Generation Time: Aug 11, 2025 at 01:00 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -371,6 +371,7 @@ ALTER TABLE `shop_detail`
 --
 ALTER TABLE `shop_logo`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `logo1_url` (`logo1_url`),
   ADD KEY `shop_name` (`shop_name`);
 
 --
@@ -429,19 +430,19 @@ ALTER TABLE `other_shop_or_bill_details`
 -- AUTO_INCREMENT for table `shop`
 --
 ALTER TABLE `shop`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `shop_detail`
 --
 ALTER TABLE `shop_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `shop_logo`
 --
 ALTER TABLE `shop_logo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `transaction`

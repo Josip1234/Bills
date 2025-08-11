@@ -111,7 +111,8 @@ class DatabaseConnection{
   //problem to add preparing statement 
   //we will simplyfy function for inserting data 
   //for the specific table.
-  public function insert_into_table($what_values,$table, $condition, $values){
+  public function insert_into_table($what_values,$table, $condition, $values,$generated_query){
+    if($generated_query==""){
     if($table==CNST_VAL::FORM_SHOP_DET_NAME){
     $single_value="";
     $multi_value=array();
@@ -173,7 +174,7 @@ class DatabaseConnection{
 }
    //now we are doing prepare statement binding
    $statement=$this->getDbconn()->prepare($query);
-    echo $query;
+    //echo $query;
  
     $shop_name=$array_slice[0];
 $address=$array_slice[1];
@@ -189,9 +190,19 @@ $web_page=$array_slice[8];
   
    $statement->execute();
   }
+}else{
+    if($table==CNST_VAL::SHOP_LOGO_FORM_NAME){
+        $statement=$this->getDbconn()->prepare($generated_query);
+        $statement->execute();
+    }
+   
+}
   }
 
-  public function produce_query_string($table,$columns,$data,$operation_name){
+
+
+
+  public function produce_query_string($table,$columns,$data,$operation_name,$where_clause,$what_column,$comp_data){
          $query_string="";
          if($operation_name==CNST_VAL::OPERATION_INSERT_LOGO){
                $query_string .= "INSERT INTO ";
@@ -220,10 +231,64 @@ $web_page=$array_slice[8];
                   }
                   $query_string .= ")";
          }else if($operation_name==CNST_VAL::OPERATION_UPDATE_LOGO){
+            //UPDATE `articles` SET `serial_num` = '8n54KcU', `article_name` = 'VODA IZV JANA MEN L' WHERE `articles`.`id` = 1
+                 $query_string .= "UPDATE ";
+                 $query_string .= $table;
+                 $query_string .= " SET ";
 
+                 //for easy access, let's create assoc array, since both arrays are equal will save some operations
+                 $ass_arr=array();
+               
+                 $ass_arr=$this->create_ass_array($columns,$data);
+                 $index=1;
+                 foreach ($ass_arr as $key => $value) {
+                    if($index==sizeof($ass_arr)){
+                         $query_string .= "".$key."='".$value."'";
+                    }else{
+$query_string .= "".$key."='".$value."',";
+                    } 
+                    
+                    $index++;
+                 }
+
+
+         }
+         if($where_clause=="yes"){
+            //what column argument must be a string
+            if(gettype($what_column)=="string"){
+                 //same as comparison data
+                 if(gettype($comp_data)=="string"){
+                    $query_string .= " WHERE ";
+                    $query_string .= $what_column;
+                    $query_string .= "=";
+                    $query_string .= "'".$comp_data."'";
+                 }
+            }
          }
          return $query_string;
   }
+
+  //both needs to be array arguments
+  public function create_ass_array($array1,$array2){
+       $assoc_array=array();
+       if((gettype($array1)=="array") && (gettype($array2)=="array")){
+          
+         $assoc_array=array_combine($array1,$array2);
+            
+       }else{
+         echo "Wrong array type";
+         $assoc_array ="";
+       }
+       return $assoc_array;
+  }
+
+ public function execute_query($query){
+    $statement=$this->getDbconn()->prepare($query);
+    $statement->execute();
+ }
+
+
+
 }
 
 ?>

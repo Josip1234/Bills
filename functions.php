@@ -196,8 +196,6 @@ function print_shop_details($shop_name)
     include("shop_logo.php");
     global $connection;
     $shop = new Shop($shop_name);
-    //višak ovo treba odstraniti definirali smo vezu prema bazi na početku skripte i koristili smo global connection da zovemo objekt
-    $connection = new DatabaseConnection("localhost", "root", "", "bills", "utf8");
     $connection->connectToDatabase();
     $sql = "SELECT * FROM shop_detail WHERE shop_name='" . $shop->get_shop_name() . "'";
     $query = mysqli_query($connection->getDbconn(), $sql);
@@ -223,7 +221,7 @@ function print_shop_details($shop_name)
       $details->print_table_data();
       //kreiraj objekt shop logo i dohvati i ispiši logotipove
       while ($res2 = mysqli_fetch_array($exe_q)) {
-
+         
         $logo = new Shop_Logo($shop_name, $res2['logo1_url'], $res2['logo2_url']);
         $logo->print_logo();
       }
@@ -556,7 +554,7 @@ function process_form($form_name, $operation)
                echo "Now we can insert new data.";
                $values_to_insert=array("shop_name","address","ssn","shop_number","telephone","fax","email","hq_address","web_page");
                //$condition=array(CNST_VAL::SHOP_NAME_COLUMN,$shop_detail->get_shop_name());
-               $connection->insert_into_table($values_to_insert,CNST_VAL::FORM_SHOP_DET_NAME,"",$shop_detail_array);
+               $connection->insert_into_table($values_to_insert,CNST_VAL::FORM_SHOP_DET_NAME,"",$shop_detail_array,"");
           }else{
             echo Validation::FAILED_VALIDATION;
           }
@@ -601,14 +599,29 @@ function process_form($form_name, $operation)
         //have a record of file written in database maybe this should be enabled to update if exists 
         //if user wants, we need to make a function for logo deletion then 
         $num_of_records=$connection->get_num_of_records_from_table_where_clause(CNST_VAL::SHOP_LOGO_FORM_NAME,CNST_VAL::LOGO_COLUMN_NAME,$file);
+        $num_of_records_shop_name=$connection->get_num_of_records_from_table_where_clause(CNST_VAL::SHOP_LOGO_FORM_NAME,CNST_VAL::SHOP_NAME_COLUMN,$shop_logo->get_shop_name());
          $operation="";
          $query="";
-         if($num_of_records==0){
+         //treba provjeriti uz postojeće uneseno ime dali postoji već unesen logo za trenutnu firmu pa trebamo i taj broj za usporedbu zapisa 
+         //kako bi validacija bila valjana i kako bi se lakše odredila da je insert ili update trebamo taj query usporediti 
+         //sa querijem za jedinstveno ime datoteke. Oba uvjeta trebaju biti zadovoljena za update
+         //za insert treba biti zadovoljen samo da firma nema već unesen logotip
+         if($num_of_records==0 && $num_of_records_shop_name==0){
           $operation=CNST_VAL::OPERATION_INSERT_LOGO;
-          $query=$connection->produce_query_string(CNST_VAL::SHOP_LOGO_FORM_NAME,array(CNST_VAL::SHOP_NAME_COLUMN,CNST_VAL::LOGO_COLUMN_NAME),array($shop_logo->get_shop_name(),$shop_logo->getLogo1Url()),CNST_VAL::OPERATION_INSERT_LOGO);
-          echo $query;
-         }else{
+          $query=$connection->produce_query_string(CNST_VAL::SHOP_LOGO_FORM_NAME,array(CNST_VAL::SHOP_NAME_COLUMN,CNST_VAL::LOGO_COLUMN_NAME),array($shop_logo->get_shop_name(),$shop_logo->getLogo1Url()),$operation,"","","");
+        
+          if($operation==CNST_VAL::OPERATION_INSERT_LOGO){
+                $connection->insert_into_table("",CNST_VAL::SHOP_LOGO_FORM_NAME,"","",$query);
+          }
+          
+         }else if($num_of_records>0 && $num_of_records_shop_name>0){
           $operation=CNST_VAL::OPERATION_UPDATE_LOGO;
+          $query=$connection->produce_query_string(CNST_VAL::SHOP_LOGO_FORM_NAME,array(CNST_VAL::SHOP_NAME_COLUMN,CNST_VAL::LOGO_COLUMN_NAME),array($shop_logo->get_shop_name(),$shop_logo->getLogo1Url()),CNST_VAL::OPERATION_UPDATE_LOGO,"yes",CNST_VAL::SHOP_NAME_COLUMN,$shop_logo->get_shop_name());
+           $connection->execute_query($query);
+         }else if($num_of_records==0 || $num_of_records_shop_name>0){
+          $operation=CNST_VAL::OPERATION_UPDATE_LOGO;
+          $query=$connection->produce_query_string(CNST_VAL::SHOP_LOGO_FORM_NAME,array(CNST_VAL::SHOP_NAME_COLUMN,CNST_VAL::LOGO_COLUMN_NAME),array($shop_logo->get_shop_name(),$shop_logo->getLogo1Url()),CNST_VAL::OPERATION_UPDATE_LOGO,"yes",CNST_VAL::SHOP_NAME_COLUMN,$shop_logo->get_shop_name());
+            $connection->execute_query($query);
          }
         }else{
        

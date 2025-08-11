@@ -8,6 +8,7 @@ class Shop_Logo extends Shop{
         $this->shop_name=$shop_name;
         $this->logo1_url = $logo1_url;
         $this->logo2_url = $logo2_url;}
+
 	public function getLogo1Url() {return $this->logo1_url;}
 
 	public function getLogo2Url() {return $this->logo2_url;}
